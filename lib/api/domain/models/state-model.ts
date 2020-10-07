@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
 import { Model, JSONSchema } from 'objection';
+import { IState } from '../../../types/state';
 import Constants from '../constants';
 
-export class StateModel extends Model {
+export class StateModel extends Model implements IState {
+  id: string;
+  abbreviation: string;
+  name: string;
+  code: string;
+  
   static tableName = Constants.STATES_TABLE;
 
   static idColumn = 'id';

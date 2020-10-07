@@ -1,8 +1,8 @@
 import { v4 } from 'uuid';
 import { CanvasV2Error, IUser, UserRole } from '../../../../types';
 import { UserModel } from '../../models/user-model';
-import { setupTransactionalDatabase } from '../../__helpers__/db-utils';
-import { chance } from '../../__helpers__/test-setup';
+import { setupTransactionalDatabase } from '../../../../../test/__helpers__/db-utils';
+import { chance } from '../../../../../test/__helpers__/test-setup';
 import { User } from '../user';
 
 describe('User', () => {

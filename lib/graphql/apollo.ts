@@ -9,12 +9,12 @@ import { constants } from '../api/secrets';
 import { authorizeUser } from '../api/service/users-service';
 
 export async function context(ctx: { req: NextApiRequest; res: NextApiResponse }) {
-  const authorization = ctx.req.headers.authorization || getAuthorizationCookie(ctx.req);
-  const refresh = ctx.req.headers.refresh || getRefreshCookie(ctx.req);
+  const authorization = getAuthorizationCookie(ctx.req) || ctx.req.headers.authorization;
+  const refresh = getRefreshCookie(ctx.req) || ctx.req.headers.refresh;
 
   let user: User | null = null;
 
-  if (authorization) {
+  if (authorization && authorization !== '') {
     const authorized = await authorizeUser(authorization, refresh as Optional<string>);
     Object.defineProperty(ctx.req, 'user', {
       get() {
@@ -35,9 +35,9 @@ export async function context(ctx: { req: NextApiRequest; res: NextApiResponse }
 }
 
 export function formatError(err: ApolloError) {
-  console.error(err);
-  console.error(err.message);
-  console.error(err.originalError);
+  // console.error(err);
+  // console.error(err.message);
+  // console.error(err.originalError);
 
   if (constants().development) delete err.extensions?.exception?.stacktrace;
 
@@ -56,12 +56,12 @@ export function formatError(err: ApolloError) {
           let message = '';
           if (constraints.isEmail) {
             message = `${constraints.isEmail.charAt(0).toUpperCase()}${constraints.isEmail.slice(
-              1,
+              1
             )}.`;
           }
           errors[property] = message;
         }
-      },
+      }
     );
 
     // eslint-disable-next-line no-param-reassign

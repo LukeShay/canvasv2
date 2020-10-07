@@ -4,6 +4,8 @@ module.exports = (_phase, { defaultConfig }) => {
     // Perform customizations to webpack config
     config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
     config.plugins.push(new webpack.IgnorePlugin(/\/__helpers__\//));
+    config.plugins.push(new webpack.IgnorePlugin(/\/test\//));
+    config.plugins.push(new webpack.IgnorePlugin(/\/cypress\//));
 
     config.node = { fs: 'empty', child_process: 'empty' };
 

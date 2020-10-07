@@ -10,7 +10,7 @@ export const SignUpMutation = gql`
     $state: String
     $zip: String
   ) {
-    createUser(
+    signUp(
       input: {
         email: $email
         password: $password
@@ -21,8 +21,29 @@ export const SignUpMutation = gql`
         zip: $zip
       }
     ) {
-      id
-      email
+      user {
+        id
+        email
+      }
+    }
+  }
+`;
+
+export const SignInMutation = gql`
+  mutation SignInMutation(
+    $email: String!
+    $password: String!
+  ) {
+    signIn(
+      input: {
+        email: $email
+        password: $password
+      }
+    ) {
+      user {
+        id
+        email
+      }
     }
   }
 `;

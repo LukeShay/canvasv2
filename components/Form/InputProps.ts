@@ -15,4 +15,5 @@ export default interface InputProps<T = HTMLInputElement> {
   maxLength?: number;
   pattern?: string;
   autoCapitalize?: string;
+  defaultValue?: string;
 }

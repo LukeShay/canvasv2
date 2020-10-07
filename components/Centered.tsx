@@ -7,7 +7,7 @@ export interface CenteredProps extends ChildrenProps {
 
 function Centered({ children, className }: CenteredProps) {
   return (
-    <div className={`w-full flex justify-center items-center text-center ${className}`}>
+    <div className={`${className} w-full flex justify-center items-center`}>
       {children}
     </div>
   );

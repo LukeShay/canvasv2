@@ -1,3 +1,5 @@
+import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import React from 'react';
 import Centered from '../components/Centered';
@@ -5,8 +7,10 @@ import CenterForm from '../components/Form/CenterForm';
 import Form from '../components/Form/Form';
 import Input from '../components/Form/Input';
 import Row from '../components/Form/Row';
+import H2 from '../components/H2';
 import Logo from '../components/Logo';
 import PrimaryButton from '../components/PrimaryButton';
+import { SignInMutation } from '../lib/web/mutations';
 import { Paths } from '../lib/web/paths';
 
 export interface ValuesState {
@@ -15,15 +19,31 @@ export interface ValuesState {
 }
 
 function SignIn() {
-  const [values, setValues] = React.useState<ValuesState>({ email: '', password: '' });
+  const [signIn] = useMutation(SignInMutation);
+  const router = useRouter();
+  const [values, setValues] = React.useState<ValuesState>({
+    email: '',
+    password: '',
+  });
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement | HTMLSelectElement>) {
     const target = event.target as HTMLInputElement;
     setValues({ ...values, [target.id]: target.value });
   }
 
-  function handleSubmit(event: React.FormEvent) {
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+
+    try {
+      const {
+        data: {
+          signIn: { user },
+        },
+      } = await signIn({ variables: values });
+      router.push(Paths.PROFILE);
+    } catch (error) {
+      // TODO: Handle failure
+    }
   }
 
   return (
@@ -32,9 +52,7 @@ function SignIn() {
         <Centered>
           <Logo size={60} />
         </Centered>
-        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-          Sign into your account
-        </h2>
+        <H2 className="mt-6 text-center">Sign into your account</H2>
         <p className="mt-2 text-center text-sm leading-5 text-gray-600">
           Or
           <Link href={Paths.SIGN_UP}>
@@ -70,7 +88,7 @@ function SignIn() {
           />
         </Row>
         <Centered>
-          <PrimaryButton className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40">
+          <PrimaryButton type="submit" className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40">
             Sign in
           </PrimaryButton>
         </Centered>

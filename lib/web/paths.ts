@@ -5,4 +5,5 @@ export enum Paths {
   TODO = '/todo',
   SIGN_IN = '/signin',
   SIGN_UP = '/signup',
+  PROFILE = '/profile',
 }

@@ -5,7 +5,7 @@ import { Paths } from '../lib/web/paths';
 
 function NavBar() {
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-teal-500 py-3 px-6">
+    <nav className="flex items-center justify-between flex-wrap bg-teal-500 py-3 px-6 mb-8">
       <Link href={Paths.HOME}>
         <div className="flex items-center flex-shrink-0 text-white mr-6 cursor-pointer">
           <LightLogo size={40} className="mr-4" />

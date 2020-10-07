@@ -11,6 +11,7 @@ export type IUser = BaseType & {
   stateId?: string;
   zip?: string;
   role: UserRole;
+  picture?: string;
 };
 
 export enum UserRole {

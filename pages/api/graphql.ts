@@ -1,15 +1,16 @@
 import { ApolloServer } from 'apollo-server-micro';
 import schema from '../../lib/graphql/schema';
-import { context, formatError } from '../../lib/graphql/apollo';
+import { context } from '../../lib/graphql/apollo';
 import { connect } from '../../lib/api/db';
+import { constants } from '../../lib/api/secrets';
 
 connect();
 
 const apolloServer = new ApolloServer({
   cacheControl: true,
   context,
-  formatError,
-  // introspection: constants().development,
+  // formatError,
+  introspection: constants().development,
   playground: true,
   schema,
   tracing: true,

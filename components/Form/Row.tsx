@@ -6,7 +6,7 @@ export interface RowProps extends ChildrenProps {
 }
 
 function Row({ children, className }: RowProps) {
-  return <div className={`flex flex-wrap -mx-3 ${className}`}>{children}</div>;
+  return <div className={`${className} flex flex-wrap -mx-3`}>{children}</div>;
 }
 
 export default Row;

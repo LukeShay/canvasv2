@@ -2,17 +2,17 @@ module.exports = {
   test: {
     useNullAsDefault: true,
     client: 'sqlite3',
-    connection: { filename: '../../test.sqlite3' },
+    connection: { filename: 'test.sqlite3' },
   },
   local: {
     useNullAsDefault: true,
     client: 'sqlite3',
-    connection: { filename: '../../dev.sqlite3' },
+    connection: { filename: 'dev.sqlite3' },
   },
   development: {
     useNullAsDefault: true,
     client: 'sqlite3',
-    connection: { filename: '../../dev.sqlite3' },
+    connection: { filename: 'dev.sqlite3' },
   },
   remote: {
     client: 'postgresql',

@@ -17,7 +17,7 @@ function Select({
   onChange,
 }: InputProps<HTMLSelectElement> & ChildrenProps) {
   return (
-    <div className={`w-full px-3 my-1 md:my-3 ${className}`}>
+    <div className={`${className} w-full px-3 my-1 md:my-3`}>
       <label
         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
         htmlFor={id}

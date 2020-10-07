@@ -45,7 +45,7 @@ function generateJwtPayload(user: IUser, type: 'AUTHORIZATION' | 'REFRESH'): JWT
     createdAt: Date.now(),
     expiresIn: parseInt(
       type === 'AUTHORIZATION' ? constants().authorizationExpiresIn : constants().refreshExpiresIn,
-      10,
+      10
     ),
   };
 }
@@ -55,7 +55,7 @@ function generateToken(user: IUser, type: 'AUTHORIZATION' | 'REFRESH') {
   return Iron.seal(
     payload,
     type === 'AUTHORIZATION' ? constants().authorizationSecret : constants().refreshSecret,
-    Iron.defaults,
+    Iron.defaults
   );
 }
 
@@ -71,12 +71,12 @@ function getPayload(token: string, type: 'AUTHORIZATION' | 'REFRESH') {
   return Iron.unseal(
     token,
     type === 'AUTHORIZATION' ? constants().authorizationSecret : constants().refreshSecret,
-    Iron.defaults,
+    Iron.defaults
   );
 }
 
 function getAuthorizationJwtPayloadIgnoreExpiration(token: string) {
-  return getPayload(token, 'AUTHORIZATION') as OptionalPromise<JWTPayload>;
+  return getPayload(token.replace('Bearer ', ''), 'AUTHORIZATION') as OptionalPromise<JWTPayload>;
 }
 
 async function getAuthorizationJwtPayload(token: string) {
@@ -102,7 +102,11 @@ function refreshPayloadIsValid(payload: JWTPayload) {
 }
 
 export async function authorizeUser(authorization: string, refresh: Optional<string>) {
-  const returned: { user: UserModel | null; authorization: string; refresh: Optional<string> } = {
+  const returned: {
+    user: UserModel | null;
+    authorization: string;
+    refresh: Optional<string>;
+  } = {
     user: null,
     authorization,
     refresh,
@@ -111,7 +115,7 @@ export async function authorizeUser(authorization: string, refresh: Optional<str
   try {
     const authorizationPayload = await getAuthorizationJwtPayload(authorization);
     const expiredAuthorizationPayload = await getAuthorizationJwtPayloadIgnoreExpiration(
-      authorization,
+      authorization
     );
     const refreshPayload = refresh ? await getRefreshJwtPayload(refresh) : null;
 
@@ -140,23 +144,30 @@ export async function authorizeUser(authorization: string, refresh: Optional<str
 }
 
 export async function signInUser(email: string, password: string, remember: boolean) {
-  const user = await UserModel.query().findOne('email', email);
+  try {
+    const user = await UserModel.query().findOne('email', email);
 
-  if (!user || !(await doEncryptedStringsMatch(password, user.password))) {
-    throw new CanvasV2Error({
-      message: 'Your email or password is incorrect.',
-      status: StatusCodes.BAD_REQUEST,
-    });
+    if (!user || !(await doEncryptedStringsMatch(password, user.password))) {
+      throw new CanvasV2Error({
+        message: 'Your email or password is incorrect.',
+        status: StatusCodes.BAD_REQUEST,
+      });
+    }
+
+    const authorization = `Bearer ${await generateAuthorizationToken(user)}`;
+    const refresh = remember ? `Bearer ${await generateRefreshToken(user)}` : undefined;
+
+    return { authorization, refresh, user };
+  } catch (error) {
+    console.error(error);
+    console.error(error.message);
   }
 
-  const authorization = `Bearer ${generateAuthorizationToken(user)}`;
-  const refresh = remember ? `Bearer ${generateRefreshToken(user)}` : undefined;
-
-  return { authorization, refresh, user };
+  return null;
 }
 
 export async function getNewUserProperties(
-  password: string,
+  password: string
 ): Promise<{ password: string; id: string; role: UserRole }> {
   const encryptedPassword = await encodeAndEncrypt(password);
   const id = v4();

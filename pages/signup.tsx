@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import React from 'react';
 import Centered from '../components/Centered';
@@ -7,6 +8,7 @@ import Form from '../components/Form/Form';
 import Input from '../components/Form/Input';
 import Row from '../components/Form/Row';
 import Select from '../components/Form/Select';
+import H2 from '../components/H2';
 import Logo from '../components/Logo';
 import PrimaryButton from '../components/PrimaryButton';
 import { SignUpMutation } from '../lib/web/mutations';
@@ -230,6 +232,8 @@ export interface ValuesState {
 }
 
 function SignUp() {
+  const [signUp] = useMutation(SignUpMutation);
+  const router = useRouter();
   const [values, setValues] = React.useState<ValuesState>({
     city: '',
     email: '',
@@ -240,21 +244,19 @@ function SignUp() {
     zip: '',
   });
 
-  const [signUp] = useMutation(SignUpMutation);
-
   function handleChange(event: React.SyntheticEvent<HTMLInputElement | HTMLSelectElement>) {
     const target = event.target as HTMLInputElement;
     setValues({ ...values, [target.id]: target.value });
   }
 
   async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+
     try {
-      event.preventDefault();
-      const result = await signUp({ variables: values });
-      console.log(result);
+      await signUp({ variables: values });
+      router.push(Paths.SIGN_IN);
     } catch (error) {
-      console.error(error);
-      console.error(error.message);
+      // TODO: Handle failure
     }
   }
 
@@ -264,9 +266,7 @@ function SignUp() {
         <Centered>
           <Logo size={60} />
         </Centered>
-        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-          Sign up for an account
-        </h2>
+        <H2 className="mt-6 text-center">Sign up for an account</H2>
         <p className="mt-2 text-center text-sm leading-5 text-gray-600">
           Or
           <Link href={Paths.SIGN_IN}>
@@ -288,7 +288,6 @@ function SignUp() {
             autoComplete="given-name"
             value={values.firstName}
             onChange={handleChange}
-            autoFocus
           />
           <Input
             id="lastName"
@@ -366,7 +365,7 @@ function SignUp() {
           />
         </Row>
         <Centered>
-          <PrimaryButton className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40">
+          <PrimaryButton type="submit" className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40">
             Sign up
           </PrimaryButton>
         </Centered>

@@ -13,6 +13,7 @@ export default gql`
     stateId: String
     zip: String
     role: String!
+    picture: String
   }
 
   input SignInInput {
@@ -28,9 +29,9 @@ export default gql`
     address1: String
     address2: String
     city: String
-    stateId: String
+    state: String
     zip: String
-    role: String!
+    role: String
   }
 
   type SignUpPayload {

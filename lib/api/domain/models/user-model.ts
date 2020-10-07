@@ -31,6 +31,8 @@ export class UserModel extends Model implements IUser {
 
   zip?: string | undefined;
 
+  picture?: string | undefined;
+
   static tableName = Constants.USERS_TABLE;
 
   static idColumn = 'id';
@@ -46,6 +48,7 @@ export class UserModel extends Model implements IUser {
         firstName: { maxLength: 255, minLength: 1, type: 'string' },
         id: { type: 'uuid' },
         lastName: { maxLength: 255, minLength: 1, type: 'string' },
+        picture: { type: ['string', 'null'] },
         state: { type: ['string', 'null'] },
         stateId: { type: ['string', 'null'] },
         updatedAt: { type: 'timestamp' },

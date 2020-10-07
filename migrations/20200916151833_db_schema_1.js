@@ -22,6 +22,7 @@ exports.up = function (knex) {
       table.string('stateId').nullable().references('id').inTable(Constants.STATES_TABLE);
       table.string('zip').nullable();
       table.string('role').nullable().defaultTo('BASIC');
+      table.string('picture').nullable();
     })
     .createTable(Constants.CLASSES_TABLE, (table) => {
       addCommonColumns(knex, table);
