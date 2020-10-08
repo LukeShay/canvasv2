@@ -1,6 +1,4 @@
 function webpack(config, { buildId, dev, isServer, defaultLoaders, webpack }) {
-  config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
-  config.plugins.push(new webpack.IgnorePlugin(/\/__helpers__\//));
   config.plugins.push(new webpack.IgnorePlugin(/\/test\//));
   config.plugins.push(new webpack.IgnorePlugin(/\/cypress\//));
 
