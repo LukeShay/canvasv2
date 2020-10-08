@@ -3,8 +3,8 @@ name: CI
 on: [push]
 
 jobs:
-  lint:
-    name: Lint
+  validate:
+    name: Validate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -13,6 +13,8 @@ jobs:
         run: yarn
       - name: Lint
         run: yarn lint
+      - name: Lint
+        run: yarn typecheck
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -33,7 +35,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Create .env.local
         run: |
-          echo "SQL_PORT=3306\nSQL_DATABASE={{ secrets.SQL_DATABASE }}\nSQL_PASSWORD={{ secrets.SQL_PASSWORD }}\nSQL_USER={{ secrets.SQL_USER }}\nSQL_HOST={{ secrets.SQL_HOST }}" >> .env.local
+          echo "SQL_PORT=3306\nSQL_DATABASE=${{ secrets.SQL_DATABASE }}\nSQL_PASSWORD=${{ secrets.SQL_PASSWORD }}\nSQL_USER=${{ secrets.SQL_USER }}\nSQL_HOST=${{ secrets.SQL_HOST }}" >> .env.local
       - name: Setup
         run: yarn
       - name: Migrate Database
