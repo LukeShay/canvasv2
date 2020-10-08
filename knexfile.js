@@ -1,3 +1,7 @@
+const dotenv = require('dotenv');
+
+dotenv.config({ path: '.env.local' });
+
 module.exports = {
   test: {
     useNullAsDefault: true,
@@ -15,12 +19,14 @@ module.exports = {
     connection: { filename: 'dev.sqlite3' },
   },
   remote: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
-      database: process.env.DB_NAME,
-      host: process.env.DB_URL,
-      user: process.env.DB_USER,
-      password: process.env.PASSWORD,
+      database: process.env.SQL_DATABASE,
+      host: process.env.SQL_HOST,
+      user: process.env.SQL_USER,
+      password: process.env.SQL_PASSWORD,
+      port: parseInt(process.env.SQL_PORT),
+      ssl: true,
     },
     pool: {
       min: 2,
