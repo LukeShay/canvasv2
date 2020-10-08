@@ -2,6 +2,8 @@ const dotenv = require('dotenv');
 
 dotenv.config({ path: '.env.local' });
 
+console.log(process.env.SQL_DATABASE);
+
 module.exports = {
   test: {
     useNullAsDefault: true,
