@@ -3,13 +3,43 @@ name: CI
 on: [push]
 
 jobs:
-  deploy:
-    name: Deploy
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-    if: github.ref == refs/heads/master
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      - name: Setup
+        run: yarn
+      - name: Lint
+        run: yarn lint
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup
+        run: yarn
+      - name: Build
+        run: yarn build
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: [lint, build]
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Create .env.local
+        run: |
+          echo "SQL_PORT=3306\nSQL_DATABASE={{ secrets.SQL_DATABASE }}\nSQL_PASSWORD={{ secrets.SQL_PASSWORD }}\nSQL_USER={{ secrets.SQL_USER }}\nSQL_HOST={{ secrets.SQL_HOST }}" >> .env.local
+      - name: Setup
+        run: yarn
+      - name: Migrate Database
+        run: yarn migrate:remote
+      - name: Seed Database
+        run: yarn seed:remote
       - name: Deploy Preview
         uses: amondnet/vercel-action@v19
         with:
