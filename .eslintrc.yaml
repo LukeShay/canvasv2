@@ -4,12 +4,15 @@ extends:
   - plugin:@typescript-eslint/recommended
   - airbnb-typescript
   - plugin:prettier/recommended
+  - plugin:jest/all
 plugins:
   - prettier
   - node
+  - jest
 env:
   node: true
   browser: true
+  jest: true
 root: true
 rules:
   import/extensions: 'off'

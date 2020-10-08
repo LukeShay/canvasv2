@@ -1,4 +1,7 @@
 module.exports = {
-  ...require('../../configs/jest.config'),
-  setupFiles: ['<rootDir>/src/__helpers__/test-setup.ts'],
-}
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  setupFilesAfterEnv: ['<rootDir>/setup-tests.ts'],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+  },
+};
