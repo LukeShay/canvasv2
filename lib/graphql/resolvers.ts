@@ -1,9 +1,10 @@
-import { AuthenticationError, UserInputError } from "apollo-server-micro";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { AuthenticationError, UserInputError } from 'apollo-server-micro';
 
-import { removeTokenCookies, setTokenCookies } from "../api/cookie";
-import { StateModel, User } from "../api/domain";
-import { getNewUserProperties, signInUser } from "../api/service/users-service";
-import { IUser, UserRole } from "../types";
+import { removeTokenCookies, setTokenCookies } from '../api/cookie';
+import { StateModel, User } from '../api/domain';
+import { getNewUserProperties, signInUser } from '../api/service/users-service';
+import { IUser, UserRole } from '../types';
 
 export default {
   Query: {
@@ -11,16 +12,14 @@ export default {
       if (context.user) {
         return context.user;
       }
-      throw new AuthenticationError(
-        "Authentication token is invalid, please log in"
-      );
+      throw new AuthenticationError('Authentication token is invalid, please log in');
     },
   },
   Mutation: {
     async signUp(_parent, args, context, _info) {
       const user = args.input;
 
-      const state = await StateModel.query().findOne("code", user.state);
+      const state = await StateModel.query().findOne('code', user.state);
 
       const newUserProperties = await getNewUserProperties(user.password);
       const newUser = new User({ ...user, ...newUserProperties, stateId: state.id } as IUser);
@@ -33,24 +32,15 @@ export default {
       return { user: newUser };
     },
 
-    async signIn(
-      _parent,
-      { input: { email, password, remember } },
-      context,
-      _info
-    ) {
+    async signIn(_parent, { input: { email, password, remember } }, context, _info) {
       const signIn = await signInUser(email, password, remember);
 
       if (signIn) {
-        setTokenCookies(
-          context.res,
-          signIn.authorization,
-          signIn.refresh || ""
-        );
+        setTokenCookies(context.res, signIn.authorization, signIn.refresh || '');
         return signIn;
       }
 
-      throw new UserInputError("Invalid email and password combination");
+      throw new UserInputError('Invalid email and password combination');
     },
     async signOut(_parent, _args, context, _info) {
       removeTokenCookies(context.res);

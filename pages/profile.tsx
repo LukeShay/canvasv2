@@ -1,10 +1,8 @@
-import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
+import { useQuery } from '@apollo/client';
 import { Paths } from '../lib/web/paths';
 import { ViewerQuery } from '../lib/web/queries';
-import { useQuery } from '@apollo/client';
-import CenterForm from '../components/Form/CenterForm';
 import Form from '../components/Form/Form';
 import { IUser, Optional } from '../lib/types';
 import Row from '../components/Form/Row';
@@ -33,7 +31,7 @@ function Profile() {
 
   if (viewer) {
     return (
-      <React.Fragment>
+      <>
         <H2 className="mt-6 text-center">Your Profile</H2>
         <Centered>
           <div className="max-w-4xl w-full flex p-10">
@@ -147,7 +145,7 @@ function Profile() {
             </div>
           </div>
         </Centered>
-      </React.Fragment>
+      </>
     );
   }
 

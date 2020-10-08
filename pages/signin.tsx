@@ -37,6 +37,7 @@ function SignIn() {
     try {
       const {
         data: {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           signIn: { user },
         },
       } = await signIn({ variables: values });

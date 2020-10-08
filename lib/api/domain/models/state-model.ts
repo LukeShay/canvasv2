@@ -6,10 +6,13 @@ import Constants from '../constants';
 
 export class StateModel extends Model implements IState {
   id: string;
+
   abbreviation: string;
+
   name: string;
+
   code: string;
-  
+
   static tableName = Constants.STATES_TABLE;
 
   static idColumn = 'id';

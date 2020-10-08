@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default interface InputProps<T = HTMLInputElement> {
   required?: boolean;
   label: string;

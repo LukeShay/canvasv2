@@ -21,7 +21,7 @@ function Input({
   onChange,
 }: InputProps) {
   return (
-    <React.Fragment>
+    <>
       <div className={`${className} w-full px-3 my-1 md:my-3`}>
         <label
           className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -48,14 +48,16 @@ function Input({
         {displayMessage && <p className="text-red-500 text-xs italic">{message}</p>}
       </div>
       {required && (
-        <style jsx>{`
-          label:after {
-            content: ' *';
-            color: red;
-          }
-        `}</style>
+        <style jsx>
+          {`
+            label:after {
+              content: ' *';
+              color: red;
+            }
+          `}
+        </style>
       )}
-    </React.Fragment>
+    </>
   );
 }
 

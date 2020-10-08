@@ -16,7 +16,7 @@ export function connect() {
         user: constants().sqlUser,
         password: constants().sqlPassword,
         database: constants().sqlDatabase,
-        port: parseInt(constants().sqlPort) || 3306,
+        port: parseInt(constants().sqlPort, 10) || 3306,
       },
     });
   }

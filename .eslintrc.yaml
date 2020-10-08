@@ -1,9 +1,9 @@
 extends:
   - eslint:recommended
-  - plugin:prettier/recommended
   - plugin:node/recommended
-  - airbnb-typescript
   - plugin:@typescript-eslint/recommended
+  - airbnb-typescript
+  - plugin:prettier/recommended
 plugins:
   - prettier
   - node
@@ -41,23 +41,6 @@ rules:
   react/prop-types: 'off'
   react/jsx-props-no-spreading: 'off'
   jsx-a11y/anchor-is-valid: 'off'
-overrides:
-  - files:
-      - '**/__tests__/**'
-      - '**/__mocks__/**'
-      - '**/__helpers__/**'
-      - '**/*.js'
-    rules:
-      import/no-extraneous-dependencies: 'off'
-      no-console: 'off'
-      no-param-reassign: 'off'
-      node/no-extraneous-import: 'off'
-      node/no-extraneous-require: 'off'
-      node/no-unpublished-import: 'off'
-      strict: 'off'
-      '@typescript-eslint/no-explicit-any': 'warn'
-    extends:
-      - plugin:jest/recommended
 parser: '@typescript-eslint/parser'
 parserOptions:
   project: './tsconfig.json'

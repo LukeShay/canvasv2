@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const ViewerQueryString = `
   query Viewer {
@@ -15,6 +15,6 @@ export const ViewerQueryString = `
       address2
     }
   }
-`
+`;
 
-export const ViewerQuery = gql(ViewerQueryString)
+export const ViewerQuery = gql(ViewerQueryString);
