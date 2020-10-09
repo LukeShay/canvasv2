@@ -13,7 +13,7 @@ jobs:
         run: yarn
       - name: Lint
         run: yarn lint
-      - name: Lint
+      - name: Typecheck
         run: yarn typecheck
       - name: Test
         run: yarn test
