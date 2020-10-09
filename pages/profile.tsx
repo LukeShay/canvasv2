@@ -3,14 +3,14 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Paths } from '../lib/web/paths';
 import { ViewerQuery } from '../lib/web/queries';
-import Form from '../components/Form/Form';
+import Form from '../components/form/Form';
 import { IUser, Optional } from '../lib/types';
-import Row from '../components/Form/Row';
-import Input from '../components/Form/Input';
+import Row from '../components/form/Row';
+import Input from '../components/form/Input';
 import Centered from '../components/Centered';
-import PrimaryButton from '../components/PrimaryButton';
-import Select from '../components/Form/Select';
-import Logo from '../components/Logo';
+import PrimaryButton from '../components/buttons/PrimaryButton';
+import Select from '../components/form/Select';
+import Logo from '../components/logos/Logo';
 import H2 from '../components/H2';
 
 function Profile() {

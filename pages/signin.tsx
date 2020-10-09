@@ -3,13 +3,13 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import React from 'react';
 import Centered from '../components/Centered';
-import CenterForm from '../components/Form/CenterForm';
-import Form from '../components/Form/Form';
-import Input from '../components/Form/Input';
-import Row from '../components/Form/Row';
+import CenterForm from '../components/form/CenterForm';
+import Form from '../components/form/Form';
+import Input from '../components/form/Input';
+import Row from '../components/form/Row';
 import H2 from '../components/H2';
-import Logo from '../components/Logo';
-import PrimaryButton from '../components/PrimaryButton';
+import Logo from '../components/logos/Logo';
+import PrimaryButton from '../components/buttons/PrimaryButton';
 import { SignInMutation } from '../lib/web/mutations';
 import { Paths } from '../lib/web/paths';
 
@@ -89,7 +89,11 @@ function SignIn() {
           />
         </Row>
         <Centered>
-          <PrimaryButton type="submit" className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40">
+          <PrimaryButton
+            type="submit"
+            className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40"
+            filled={false}
+          >
             Sign in
           </PrimaryButton>
         </Centered>
