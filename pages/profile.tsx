@@ -41,6 +41,10 @@ function Profile() {
     return <p>{error.message}</p>;
   }
 
+  if (!viewer) {
+    return <div>Loading</div>;
+  }
+
   return (
     <>
       <H2 className="mt-6 text-center">Your Profile</H2>
@@ -63,7 +67,7 @@ function Profile() {
                     required
                     className="md:w-1/2"
                     autoComplete="given-name"
-                    defaultValue={viewer?.firstName}
+                    defaultValue={viewer.firstName}
                     loading={!viewer}
                   />
                   <Input
@@ -74,7 +78,7 @@ function Profile() {
                     required
                     className="md:w-1/2"
                     autoComplete="family-name"
-                    defaultValue={viewer?.lastName}
+                    defaultValue={viewer.lastName}
                     loading={!viewer}
                   />
                 </Row>
@@ -86,7 +90,7 @@ function Profile() {
                     placeholder="jane.doe@email.com"
                     required
                     autoComplete="email"
-                    defaultValue={viewer?.email}
+                    defaultValue={viewer.email}
                     loading={!viewer}
                   />
                 </Row>
@@ -108,7 +112,7 @@ function Profile() {
                     type="text"
                     placeholder="1234 Wallaby Way"
                     autoComplete="address1"
-                    defaultValue={viewer?.address1}
+                    defaultValue={viewer.address1}
                     loading={!viewer}
                   />
                 </Row>
@@ -119,7 +123,7 @@ function Profile() {
                     type="text"
                     placeholder="P.O. 567"
                     autoComplete="address2"
-                    defaultValue={viewer?.address2}
+                    defaultValue={viewer.address2}
                     loading={!viewer}
                   />
                 </Row>
@@ -131,7 +135,7 @@ function Profile() {
                     placeholder="Austin"
                     required
                     className="md:w-1/3"
-                    defaultValue={viewer?.city}
+                    defaultValue={viewer.city}
                     loading={!viewer}
                   />
                   <Select id="state" label="state" required className="md:w-1/3" loading={!viewer}>
@@ -147,7 +151,7 @@ function Profile() {
                     minLength={5}
                     maxLength={5}
                     pattern="\d{5}"
-                    defaultValue={viewer?.zip}
+                    defaultValue={viewer.zip}
                     loading={!viewer}
                   />
                 </Row>
