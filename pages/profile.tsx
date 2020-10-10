@@ -1,10 +1,7 @@
-import { useRouter } from 'next/dist/client/router';
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/dist/client/router';
 import { Paths } from '../lib/web/paths';
-import { ViewerQuery } from '../lib/web/queries';
 import Form from '../components/form/Form';
-import { IUser, Optional } from '../lib/types';
 import Row from '../components/form/Row';
 import Input from '../components/form/Input';
 import Centered from '../components/Centered';
@@ -12,12 +9,12 @@ import PrimaryButton from '../components/buttons/PrimaryButton';
 import Select from '../components/form/Select';
 import Logo from '../components/logos/Logo';
 import H2 from '../components/H2';
+import { useViewer } from '../lib/web/hooks';
 
 function Profile() {
   const router = useRouter();
 
-  const { data, loading, error } = useQuery(ViewerQuery);
-  const viewer = data?.viewer as Optional<IUser>;
+  const { viewer, data, loading, error } = useViewer();
 
   React.useEffect(() => {
     if ((!data || error) && !loading) {
@@ -34,13 +31,13 @@ function Profile() {
       <>
         <H2 className="mt-6 text-center">Your Profile</H2>
         <Centered>
-          <div className="max-w-4xl w-full flex p-10">
-            <div className="w-1/3">
+          <div className="max-w-4xl w-full md:flex p-10">
+            <div className="w-full md:w-1/3">
               <Centered>
                 <Logo size={200} className="mt-4" />
               </Centered>
             </div>
-            <div className="w-2/3">
+            <div className="w-full md:w-2/3">
               <Centered className="text-left">
                 <Form>
                   <Row>
@@ -136,8 +133,9 @@ function Profile() {
                     <PrimaryButton
                       type="submit"
                       className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40"
+                      filled={false}
                     >
-                      Sign up
+                      Save
                     </PrimaryButton>
                   </Centered>
                 </Form>

@@ -45,14 +45,16 @@ jobs:
           SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
           SQL_USER: ${{ secrets.SQL_USER }}
           SQL_HOST: ${{ secrets.SQL_HOST }}
-      # - name: Seed Database
-      #   run: yarn seed:remote
-      #   env:
-      #     SQL_PORT: 3306
-      #     SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
-      #     SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
-      #     SQL_USER: ${{ secrets.SQL_USER }}
-      #     SQL_HOST: ${{ secrets.SQL_HOST }}
+      - name: Seed Database
+        run: yarn seed:remote
+        env:
+          SQL_PORT: 3306
+          SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
+          SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
+          SQL_USER: ${{ secrets.SQL_USER }}
+          SQL_HOST: ${{ secrets.SQL_HOST }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
       - name: Deploy Preview
         uses: amondnet/vercel-action@v19
         with:

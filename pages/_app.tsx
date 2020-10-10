@@ -10,10 +10,8 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <div className="w-screen h-screen bg-gray-100">
-        <NavBar />
-        <Component {...pageProps} />
-      </div>
+      <NavBar />
+      <Component {...pageProps} />
     </ApolloProvider>
   );
 }

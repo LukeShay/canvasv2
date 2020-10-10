@@ -30,7 +30,7 @@ function Input({
           {label}
         </label>
         <input
-          className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:shadow-outline-gray focus:outline-none"
+          className="shadow-s appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:shadow-outline-gray focus:outline-none"
           id={id}
           type={type}
           placeholder={placeholder}

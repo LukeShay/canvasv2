@@ -24,9 +24,7 @@ export class ClassModel extends Model {
   }
 
   static get relationMappings(): RelationMappings {
-    // ts-expect-error
     const { UserModel } = require('./user-model');
-    // ts-expect-error
     const { AssistantModel } = require('./assistant-model');
 
     return {

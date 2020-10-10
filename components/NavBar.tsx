@@ -2,9 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import Logo from './logos/Logo';
 import { Paths } from '../lib/web/paths';
+import { useViewer } from '../lib/web/hooks';
 
 function NavBar() {
   const [open, setOpen] = React.useState(false);
+  const { viewer } = useViewer();
 
   function handleClick() {
     setOpen(!open);
@@ -59,16 +61,26 @@ function NavBar() {
             </Link>
           </div>
           <div className="md:mt-0 mt-2 pl-4">
-            <Link href={Paths.SIGN_UP}>
-              <a className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 mr-4 transition duration-150 ease-in-out">
-                Sign Up
-              </a>
-            </Link>
-            <Link href={Paths.SIGN_IN}>
-              <a className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 transition duration-150 ease-in-out">
-                Sign In
-              </a>
-            </Link>
+            {viewer ? (
+              <Link href={Paths.PROFILE}>
+                <a className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 mr-4 transition duration-150 ease-in-out">
+                  Profile
+                </a>
+              </Link>
+            ) : (
+              <>
+                <Link href={Paths.SIGN_UP}>
+                  <a className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 mr-4 transition duration-150 ease-in-out">
+                    Sign Up
+                  </a>
+                </Link>
+                <Link href={Paths.SIGN_IN}>
+                  <a className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 transition duration-150 ease-in-out">
+                    Sign In
+                  </a>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -117,7 +129,7 @@ function NavBar() {
                 <Link href={Paths.CALENDAR}>
                   <a
                     href="#"
-                    className="mt-1 block px-3 py-2 rounded-md text-base font-medium  text-gray-500 leading-none hover:text-indigo-500 transition duration-150 ease-in-out"
+                    className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-500 leading-none hover:text-indigo-500 transition duration-150 ease-in-out"
                     role="menuitem"
                     onClick={handleClick}
                   >
@@ -127,11 +139,21 @@ function NavBar() {
                 <Link href={Paths.TODO}>
                   <a
                     href="#"
-                    className="mt-1 block px-3 py-2 rounded-md text-base font-medium  text-gray-500 leading-none hover:text-white transition duration-150 ease-in-out"
+                    className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-500 leading-none hover:text-indigo-500 transition duration-150 ease-in-out"
                     role="menuitem"
                     onClick={handleClick}
                   >
                     Todo
+                  </a>
+                </Link>
+                <Link href={viewer ? Paths.PROFILE : Paths.SIGN_UP}>
+                  <a
+                    href="#"
+                    className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-500 leading-none hover:text-indigo-500 transition duration-150 ease-in-out"
+                    role="menuitem"
+                    onClick={handleClick}
+                  >
+                    {viewer ? 'Profile' : 'Sign up'}
                   </a>
                 </Link>
               </div>
