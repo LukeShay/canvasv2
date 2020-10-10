@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Logo from './logos/Logo';
 import { Paths } from '../lib/web/paths';
 import { useViewer } from '../lib/web/hooks';
+import { UserRole } from '../lib/types';
 
 function NavBar() {
   const [open, setOpen] = React.useState(false);
@@ -59,6 +60,11 @@ function NavBar() {
                 To-do
               </a>
             </Link>
+            {viewer?.role === UserRole.ADMIN && (
+              <a className="inline-block text-sm px-4 py-2 text-red-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
+                Admin
+              </a>
+            )}
           </div>
           <div className="md:mt-0 mt-2 pl-4">
             {viewer ? (

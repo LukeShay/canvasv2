@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assistant model should should have jsonSchema that matches snapshot 1`] = `
+Object {
+  "properties": Object {
+    "assistantId": Object {
+      "type": "string",
+    },
+    "classId": Object {
+      "type": "string",
+    },
+  },
+  "required": Array [
+    "assistantId",
+    "classId",
+  ],
+  "type": "object",
+}
+`;
+
+exports[`assistant model should should have relationMappings that matches snapshot 1`] = `
+Object {
+  "assistant": Object {
+    "join": Object {
+      "from": "Assistants.assistantId",
+      "to": "Users.id",
+    },
+    "modelClass": [Function],
+    "relation": [Function],
+  },
+  "class": Object {
+    "join": Object {
+      "from": "Assistants.classId",
+      "to": "Classes.id",
+    },
+    "modelClass": [Function],
+    "relation": [Function],
+  },
+}
+`;

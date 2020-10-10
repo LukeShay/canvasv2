@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user model should should have jsonSchema that matches snapshot 1`] = `
+Object {
+  "properties": Object {
+    "addresss1": Object {
+      "type": Array [
+        "string",
+        "null",
+      ],
+    },
+    "addresss2": Object {
+      "type": Array [
+        "string",
+        "null",
+      ],
+    },
+    "city": Object {
+      "type": Array [
+        "string",
+        "null",
+      ],
+    },
+    "createdAt": Object {
+      "type": "timestamp",
+    },
+    "email": Object {
+      "type": "string",
+    },
+    "firstName": Object {
+      "maxLength": 255,
+      "minLength": 1,
+      "type": "string",
+    },
+    "id": Object {
+      "type": "uuid",
+    },
+    "lastName": Object {
+      "maxLength": 255,
+      "minLength": 1,
+      "type": "string",
+    },
+    "picture": Object {
+      "type": Array [
+        "string",
+        "null",
+      ],
+    },
+    "state": Object {
+      "type": Array [
+        "string",
+        "null",
+      ],
+    },
+    "stateId": Object {
+      "type": Array [
+        "string",
+        "null",
+      ],
+    },
+    "updatedAt": Object {
+      "type": "timestamp",
+    },
+    "zip": Object {
+      "type": Array [
+        "string",
+        "null",
+      ],
+    },
+  },
+  "required": Array [
+    "email",
+    "firstName",
+    "lastName",
+    "password",
+  ],
+  "type": "object",
+}
+`;
+
+exports[`user model should should have relationMappings that matches snapshot 1`] = `
+Object {
+  "assistantClasses": Object {
+    "join": Object {
+      "from": "Users.id",
+      "through": Object {
+        "from": "Assistants.studentId",
+        "to": "Assistants.classId",
+      },
+      "to": "Classes.id",
+    },
+    "modelClass": [Function],
+    "relation": [Function],
+  },
+  "organizations": Object {
+    "join": Object {
+      "from": "Users.id",
+      "through": Object {
+        "from": "Assistants.userId",
+        "to": "Assistants.organizationId",
+      },
+      "to": "Assistants.id",
+    },
+    "modelClass": [Function],
+    "relation": [Function],
+  },
+  "state": Object {
+    "join": Object {
+      "from": "Users.stateId",
+      "to": "States.id",
+    },
+    "modelClass": [Function],
+    "relation": [Function],
+  },
+  "studentClasses": Object {
+    "join": Object {
+      "from": "Users.id",
+      "through": Object {
+        "from": "Students.studentId",
+        "to": "Students.classId",
+      },
+      "to": "Classes.id",
+    },
+    "modelClass": [Function],
+    "relation": [Function],
+  },
+}
+`;

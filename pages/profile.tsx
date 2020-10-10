@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
 import { Paths } from '../lib/web/paths';
 import Form from '../components/form/Form';
@@ -7,20 +8,34 @@ import Input from '../components/form/Input';
 import Centered from '../components/Centered';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Select from '../components/form/Select';
-import Logo from '../components/logos/Logo';
 import H2 from '../components/H2';
 import { useViewer } from '../lib/web/hooks';
+import { SignOutMutation } from '../lib/web/mutations';
 
 function Profile() {
   const router = useRouter();
+  const client = useApolloClient();
 
   const { viewer, data, loading, error } = useViewer();
+  const [signOut] = useMutation(SignOutMutation);
 
   React.useEffect(() => {
     if ((!data || error) && !loading) {
       router.push(Paths.SIGN_IN);
     }
   }, [data, loading, error]);
+
+  async function handleSignOutClick(event: SyntheticEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
+    try {
+      await signOut();
+      await client.resetStore();
+      router.push(Paths.SIGN_IN);
+    } catch (error) {
+      // TODO: Handle errors
+    }
+  }
 
   if (error) {
     return <p>{error.message}</p>;
@@ -34,7 +49,7 @@ function Profile() {
           <div className="max-w-4xl w-full md:flex p-10">
             <div className="w-full md:w-1/3">
               <Centered>
-                <Logo size={200} className="mt-4" />
+                <img src="/person.svg" width={200} height={200} className="mt-4" alt="person" />
               </Centered>
             </div>
             <div className="w-full md:w-2/3">
@@ -129,15 +144,23 @@ function Profile() {
                       defaultValue={viewer.zip}
                     />
                   </Row>
-                  <Centered>
-                    <PrimaryButton
-                      type="submit"
-                      className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40"
-                      filled={false}
-                    >
-                      Save
-                    </PrimaryButton>
-                  </Centered>
+                  <Row>
+                    <div className="md:w-1/2 px-4">
+                      <PrimaryButton type="submit" className="w-full">
+                        Save
+                      </PrimaryButton>
+                    </div>
+                    <div className="md:w-1/2 px-4">
+                      <PrimaryButton
+                        type="button"
+                        className="w-full"
+                        filled={false}
+                        onClick={handleSignOutClick}
+                      >
+                        Sign out
+                      </PrimaryButton>
+                    </div>
+                  </Row>
                 </Form>
               </Centered>
             </div>
