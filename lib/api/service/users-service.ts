@@ -101,6 +101,10 @@ function refreshPayloadIsValid(payload: JWTPayload) {
   return payload.type === 'REFRESH' && payloadIsValid(payload);
 }
 
+function getByIdAndEmail(id: string, email: string) {
+  return UserModel.query().findOne('id', id).where('email', email);
+}
+
 export async function authorizeUser(authorization: string, refresh: Optional<string>) {
   const returned: {
     user: UserModel | null;
@@ -120,18 +124,20 @@ export async function authorizeUser(authorization: string, refresh: Optional<str
     const refreshPayload = refresh ? await getRefreshJwtPayload(refresh) : null;
 
     if (authorizationPayload && authorizationPayloadIsValid(authorizationPayload)) {
-      returned.user = await UserModel.query()
-        .findOne('id', authorizationPayload.userId)
-        .where('email', authorizationPayload.email);
+      returned.user = await getByIdAndEmail(
+        authorizationPayload.userId,
+        authorizationPayload.email
+      );
     } else if (
       refreshPayload &&
       refreshPayloadIsValid(refreshPayload) &&
       expiredAuthorizationPayload &&
       authorizationPayloadIsValid(expiredAuthorizationPayload)
     ) {
-      returned.user = await UserModel.query()
-        .findOne('id', expiredAuthorizationPayload.userId)
-        .where('email', expiredAuthorizationPayload.email);
+      returned.user = await getByIdAndEmail(
+        expiredAuthorizationPayload.userId,
+        expiredAuthorizationPayload.email
+      );
       returned.authorization = await generateAuthorizationToken(returned.user);
     }
     // eslint-disable-next-line no-empty
