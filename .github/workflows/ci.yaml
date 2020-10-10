@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
       - name: Setup
         run: yarn
       - name: Lint
@@ -21,6 +24,9 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
       - name: Setup
         run: yarn
       - name: Build
@@ -33,6 +39,9 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
       - name: Setup
         run: yarn
       - name: Migrate Database
