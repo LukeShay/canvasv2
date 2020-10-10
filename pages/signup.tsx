@@ -365,7 +365,11 @@ function SignUp() {
           />
         </Row>
         <Centered>
-          <PrimaryButton type="submit" className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40">
+          <PrimaryButton
+            type="submit"
+            className="w-full sm:w-full md:w-40 lg:w-40 xl:w-40"
+            filled={false}
+          >
             Sign up
           </PrimaryButton>
         </Centered>

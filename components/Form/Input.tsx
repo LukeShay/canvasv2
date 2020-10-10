@@ -18,13 +18,33 @@ function Input({
   pattern,
   autoCapitalize,
   defaultValue,
+  loading,
   onChange,
 }: InputProps) {
-  return (
+  return loading ? (
     <>
       <div className={`${className} w-full px-3 my-1 md:my-3`}>
         <label
-          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          className="shadow-s block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2 bg-gray-400 w-1/3"
+          htmlFor={id}
+        >
+          {label}
+        </label>
+        <input
+          className="shadow-s appearance-none w-full bg-gray-400 rounded py-3 px-4 mb-3 leading-tight border border-gray-400"
+          disabled
+          id={id}
+        />
+        {displayMessage && <p className="text-red-500 text-xs italic">{message}</p>}
+      </div>
+    </>
+  ) : (
+    <>
+      <div className={`${className} w-full px-3 my-1 md:my-3`}>
+        <label
+          className={`${
+            required && 'required'
+          } block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2`}
           htmlFor={id}
         >
           {label}
@@ -47,16 +67,6 @@ function Input({
         />
         {displayMessage && <p className="text-red-500 text-xs italic">{message}</p>}
       </div>
-      {required && (
-        <style jsx>
-          {`
-            label:after {
-              content: ' *';
-              color: red;
-            }
-          `}
-        </style>
-      )}
     </>
   );
 }

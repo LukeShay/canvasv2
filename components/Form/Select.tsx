@@ -14,12 +14,33 @@ function Select({
   message,
   displayMessage,
   value,
+  loading,
   onChange,
 }: InputProps<HTMLSelectElement> & ChildrenProps) {
-  return (
+  return loading ? (
     <div className={`${className} w-full px-3 my-1 md:my-3`}>
       <label
-        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        className="shadow-s block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2 bg-gray-400 w-1/3"
+        htmlFor={id}
+      >
+        {label}
+      </label>
+      <div className="relative">
+        <select
+          className="block appearance-none w-full border border-gray-400 text-gray-400 py-3 px-4 mb-3 pr-8 rounded leading-tight bg-gray-400"
+          id={id}
+        >
+          {children}
+        </select>
+      </div>
+      {displayMessage && <p className="text-red-500 text-xs italic">{message}</p>}
+    </div>
+  ) : (
+    <div className={`${className} w-full px-3 my-1 md:my-3`}>
+      <label
+        className={`${
+          required && 'required'
+        } block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2`}
         htmlFor={id}
       >
         {label}

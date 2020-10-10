@@ -6,5 +6,6 @@ export interface ButtonProps extends ChildrenProps {
   id?: string;
   type?: 'button' | 'reset' | 'submit';
   filled?: boolean;
+  loading?: boolean;
   onClick?: React.EventHandler<React.SyntheticEvent<HTMLButtonElement>>;
 }

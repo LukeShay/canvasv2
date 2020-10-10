@@ -12,6 +12,7 @@ import Logo from '../components/logos/Logo';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import { SignInMutation } from '../lib/web/mutations';
 import { Paths } from '../lib/web/paths';
+import { useViewer } from '../lib/web/hooks';
 
 export interface ValuesState {
   email: string;
@@ -19,12 +20,19 @@ export interface ValuesState {
 }
 
 function SignIn() {
-  const [signIn] = useMutation(SignInMutation);
   const router = useRouter();
+  const [signIn] = useMutation(SignInMutation);
+  const { viewer } = useViewer();
   const [values, setValues] = React.useState<ValuesState>({
     email: '',
     password: '',
   });
+
+  React.useEffect(() => {
+    if (viewer) {
+      router.push(Paths.PROFILE);
+    }
+  }, [viewer]);
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement | HTMLSelectElement>) {
     const target = event.target as HTMLInputElement;

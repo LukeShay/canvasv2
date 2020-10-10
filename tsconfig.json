@@ -18,8 +18,9 @@
     "jsx": "preserve",
     "strictNullChecks": true,
     "isolatedModules": true,
+    "baseUrl": ".",
     "paths": {
-      "~/": ["."]
+      "~/*": ["*"]
     }
   },
   "include": [

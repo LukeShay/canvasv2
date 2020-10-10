@@ -1,13 +1,14 @@
 import React from 'react';
-import ChildrenProps from '../ChildrenProps';
 
-export interface FormProps extends ChildrenProps {
+import { CommonProps } from '../CommonProps';
+
+export interface FormProps extends CommonProps {
   onSubmit?: React.EventHandler<React.FormEvent>;
 }
 
-function Form({ children, onSubmit }: FormProps) {
+function Form({ children, className, onSubmit }: FormProps) {
   return (
-    <form className="w-full max-w-lg" onSubmit={onSubmit}>
+    <form className={`${className} w-full max-w-lg`} onSubmit={onSubmit}>
       {children}
     </form>
   );

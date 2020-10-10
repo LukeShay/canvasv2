@@ -18,4 +18,5 @@ export default interface InputProps<T = HTMLInputElement> {
   pattern?: string;
   autoCapitalize?: string;
   defaultValue?: string;
+  loading?: boolean;
 }

@@ -1,12 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Logo from './logos/Logo';
 import { Paths } from '../lib/web/paths';
 import { useViewer } from '../lib/web/hooks';
 import { UserRole } from '../lib/types';
 
 function NavBar() {
+  const router = useRouter();
+
   const [open, setOpen] = React.useState(false);
+
   const { viewer } = useViewer();
 
   function handleClick() {
@@ -67,25 +71,23 @@ function NavBar() {
             )}
           </div>
           <div className="md:mt-0 mt-2 pl-4">
-            {viewer ? (
-              <Link href={Paths.PROFILE}>
-                <a className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 mr-4 transition duration-150 ease-in-out">
-                  Profile
-                </a>
+            <Link href={viewer ? Paths.PROFILE : Paths.SIGN_UP}>
+              <button
+                className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900transition duration-150 ease-in-out w-24 mr-4"
+                type="button"
+              >
+                {viewer ? 'Profile' : 'Sign up'}
+              </button>
+            </Link>
+            {!viewer && (
+              <Link href={viewer ? router.pathname : Paths.SIGN_IN}>
+                <button
+                  className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 transition duration-150 ease-in-out w-24"
+                  type="button"
+                >
+                  Sign In
+                </button>
               </Link>
-            ) : (
-              <>
-                <Link href={Paths.SIGN_UP}>
-                  <a className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 mr-4 transition duration-150 ease-in-out">
-                    Sign Up
-                  </a>
-                </Link>
-                <Link href={Paths.SIGN_IN}>
-                  <a className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 transition duration-150 ease-in-out">
-                    Sign In
-                  </a>
-                </Link>
-              </>
             )}
           </div>
         </div>

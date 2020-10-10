@@ -8,8 +8,10 @@ export function useViewer() {
   const { loading, data, error } = useQuery(ViewerQuery);
 
   React.useEffect(() => {
-    setViewer(data?.viewer);
-  }, [loading, data, error]);
+    if (data?.viewer) {
+      setViewer(data.viewer);
+    }
+  }, [data]);
 
   return { viewer, loading, data, error };
 }

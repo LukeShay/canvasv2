@@ -5,3 +5,8 @@
 html {
   background-color: #f4f5f7;
 }
+
+.required:after {
+  content: ' *';
+  color: red;
+}
