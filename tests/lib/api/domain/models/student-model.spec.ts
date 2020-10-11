@@ -1,4 +1,4 @@
-import { StudentModel } from '../../../../../lib/api/domain';
+import { StudentModel } from '~/lib/api/domain';
 
 describe('student model', () => {
   it("should have idColum 'id'", () => {

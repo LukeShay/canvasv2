@@ -1,4 +1,4 @@
-import { AssistantModel } from '../../../../../lib/api/domain';
+import { AssistantModel } from '~/lib/api/domain';
 
 describe('assistant model', () => {
   it("should have idColum 'id'", () => {

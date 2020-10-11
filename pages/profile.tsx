@@ -1,16 +1,16 @@
 import React, { SyntheticEvent } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { Paths } from '../lib/web/paths';
-import Form from '../components/form/Form';
-import Row from '../components/form/Row';
-import Input from '../components/form/Input';
-import Centered from '../components/Centered';
-import PrimaryButton from '../components/buttons/PrimaryButton';
-import Select from '../components/form/Select';
-import H2 from '../components/H2';
-import { useViewer } from '../lib/web/hooks';
-import { SignOutMutation } from '../lib/web/mutations';
+import { Paths } from '~/lib/web/paths';
+import Form from '~/components/form/Form';
+import Row from '~/components/form/Row';
+import Input from '~/components/form/Input';
+import Centered from '~/components/Centered';
+import PrimaryButton from '~/components/buttons/PrimaryButton';
+import Select from '~/components/form/Select';
+import H2 from '~/components/H2';
+import { useViewer } from '~/lib/web/hooks';
+import { SignOutMutation } from '~/lib/web/mutations';
 
 function Profile() {
   const router = useRouter();

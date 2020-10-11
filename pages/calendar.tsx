@@ -1,6 +1,6 @@
 import React from 'react';
-import Centered from '../components/Centered';
-import H2 from '../components/H2';
+import Centered from '~/components/Centered';
+import H2 from '~/components/H2';
 
 function Calendar() {
   return (

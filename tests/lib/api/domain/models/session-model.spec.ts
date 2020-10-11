@@ -1,4 +1,4 @@
-import { SessionModel } from '../../../../../lib/api/domain';
+import { SessionModel } from '~/lib/api/domain';
 
 describe('session model', () => {
   it("should have idColum 'id'", () => {

@@ -1,4 +1,4 @@
-import { OrganizationModel } from '../../../../../lib/api/domain';
+import { OrganizationModel } from '~/lib/api/domain';
 
 describe('organization model', () => {
   it("should have idColum 'id'", () => {

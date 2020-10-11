@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Logo from './logos/Logo';
-import { Paths } from '../lib/web/paths';
-import { useViewer } from '../lib/web/hooks';
-import { UserRole } from '../lib/types';
+import { Paths } from '~/lib/web/paths';
+import { useViewer } from '~/lib/web/hooks';
+import { UserRole } from '~/lib/types';
 
 function NavBar() {
   const router = useRouter();

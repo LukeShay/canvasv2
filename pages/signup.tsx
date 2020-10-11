@@ -2,17 +2,17 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import React from 'react';
-import Centered from '../components/Centered';
-import CenterForm from '../components/form/CenterForm';
-import Form from '../components/form/Form';
-import Input from '../components/form/Input';
-import Row from '../components/form/Row';
-import Select from '../components/form/Select';
-import H2 from '../components/H2';
-import Logo from '../components/logos/Logo';
-import PrimaryButton from '../components/buttons/PrimaryButton';
-import { SignUpMutation } from '../lib/web/mutations';
-import { Paths } from '../lib/web/paths';
+import Centered from '~/components/Centered';
+import CenterForm from '~/components/form/CenterForm';
+import Form from '~/components/form/Form';
+import Input from '~/components/form/Input';
+import Row from '~/components/form/Row';
+import Select from '~/components/form/Select';
+import H2 from '~/components/H2';
+import Logo from '~/components/logos/Logo';
+import PrimaryButton from '~/components/buttons/PrimaryButton';
+import { SignUpMutation } from '~/lib/web/mutations';
+import { Paths } from '~/lib/web/paths';
 
 const states = [
   {
