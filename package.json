@@ -29,7 +29,7 @@
     "maintained node versions"
   ],
   "dependencies": {
-    "@apollo/client": "^3.2.2",
+    "@apollo/client": "^3.2.3",
     "@hapi/iron": "^6.0.0",
     "@tailwindcss/ui": "^0.6.2",
     "@testing-library/dom": "^7.24.5",
