@@ -1,4 +1,5 @@
 import { BaseType } from './common';
+import { IState } from './state';
 
 export type IUser = BaseType & {
   email: string;
@@ -12,6 +13,7 @@ export type IUser = BaseType & {
   zip?: string;
   role: UserRole;
   picture?: string;
+  state?: IState;
 };
 
 export enum UserRole {

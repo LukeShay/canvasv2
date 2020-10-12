@@ -32,7 +32,7 @@ function Input({
         </label>
         <input
           className="shadow-s appearance-none w-full bg-gray-400 rounded py-3 px-4 mb-3 leading-tight border border-gray-400"
-          disabled
+          // disabled
           id={id}
         />
         {displayMessage && <p className="text-red-500 text-xs italic">{message}</p>}

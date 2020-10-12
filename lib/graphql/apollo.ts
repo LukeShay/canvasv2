@@ -1,18 +1,19 @@
 import { v4 } from 'uuid';
 import { ApolloError } from 'apollo-server-micro';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { CanvasV2Error, Optional, IUser as User } from '../types';
+import { CanvasV2Error, Optional } from '../types';
 import { StatusCodes } from '../api/http-status-codes';
 
 import { getAuthorizationCookie, getRefreshCookie, setTokenCookies } from '../api/cookie';
 import { constants } from '../api/secrets';
 import { authorizeUser } from '../api/service/users-service';
+import { UserModel } from '../api/domain';
 
 export async function context(ctx: { req: NextApiRequest; res: NextApiResponse }) {
   const authorization = getAuthorizationCookie(ctx.req) || ctx.req.headers.authorization;
   const refresh = getRefreshCookie(ctx.req) || ctx.req.headers.refresh;
 
-  let user: User | null = null;
+  let user: UserModel | null = null;
 
   if (authorization && authorization !== '') {
     const authorized = await authorizeUser(authorization, refresh as Optional<string>);
@@ -35,10 +36,6 @@ export async function context(ctx: { req: NextApiRequest; res: NextApiResponse }
 }
 
 export function formatError(err: ApolloError) {
-  // console.error(err);
-  // console.error(err.message);
-  // console.error(err.originalError);
-
   if (constants().development) delete err.extensions?.exception?.stacktrace;
 
   if (err.originalError instanceof CanvasV2Error) {

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import { IUser, Optional } from '../types';
-import { ViewerQuery } from './queries';
+import { ViewerQuery } from './server/queries';
 
 export function useViewer() {
   const [viewer, setViewer] = React.useState<Optional<IUser>>();

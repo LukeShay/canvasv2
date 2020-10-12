@@ -1,6 +1,7 @@
 import { genSaltSync, hash, compare } from 'bcryptjs';
 import { v4 } from 'uuid';
 import Iron from '@hapi/iron';
+import * as Sentry from '@sentry/node';
 import { IUser, Optional, UserRole, JWTPayload, CanvasV2Error, OptionalPromise } from '../../types';
 import { UserModel } from '../domain';
 import { StatusCodes } from '../http-status-codes';
@@ -16,8 +17,7 @@ async function encodeAndEncrypt(password: string) {
   try {
     return await hash(b64Encode(password), SALT);
   } catch (error) {
-    console.error(error);
-    console.error(error.message);
+    Sentry.captureException(error);
     throw new CanvasV2Error({
       message: 'An unexpected error occured.',
       status: StatusCodes.INTERNAL_SERVER_ERROR,
@@ -29,8 +29,7 @@ async function doEncryptedStringsMatch(unencrypted: string, encrypted: string) {
   try {
     return await compare(b64Encode(unencrypted), encrypted);
   } catch (error) {
-    console.error(error);
-    console.error(error.message);
+    Sentry.captureException(error);
   }
 
   return false;
@@ -142,8 +141,7 @@ export async function authorizeUser(authorization: string, refresh: Optional<str
     }
     // eslint-disable-next-line no-empty
   } catch (error) {
-    console.error(error);
-    console.error(error.message);
+    Sentry.captureException(error);
   }
 
   return returned;
@@ -165,8 +163,7 @@ export async function signInUser(email: string, password: string, remember: bool
 
     return { authorization, refresh, user };
   } catch (error) {
-    console.error(error);
-    console.error(error.message);
+    Sentry.captureException(error);
   }
 
   return null;

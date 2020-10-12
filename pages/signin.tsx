@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import React from 'react';
+import * as Sentry from '@sentry/node';
 import Centered from '~/components/Centered';
 import CenterForm from '~/components/form/CenterForm';
 import Form from '~/components/form/Form';
@@ -10,7 +11,7 @@ import Row from '~/components/form/Row';
 import H2 from '~/components/H2';
 import Logo from '~/components/logos/Logo';
 import PrimaryButton from '~/components/buttons/PrimaryButton';
-import { SignInMutation } from '~/lib/web/mutations';
+import { SignInMutation } from '~/lib/web/server/mutations';
 import { Paths } from '~/lib/web/paths';
 import { useViewer } from '~/lib/web/hooks';
 
@@ -43,14 +44,10 @@ function SignIn() {
     event.preventDefault();
 
     try {
-      const {
-        data: {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          signIn: { user },
-        },
-      } = await signIn({ variables: values });
+      await signIn({ variables: values });
       router.push(Paths.PROFILE);
     } catch (error) {
+      Sentry.captureException(error);
       // TODO: Handle failure
     }
   }
