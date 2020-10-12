@@ -67,7 +67,7 @@
     "mssql": "^6.2.3",
     "mysql": "^2.18.1",
     "net": "^1.0.2",
-    "next": "9.5.4",
+    "next": "9.5.5",
     "objection": "^2.2.3",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.1.2",
