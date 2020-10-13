@@ -1,16 +1,15 @@
+import { IUser, UserRole } from '@lib/types';
+import { StateModel, User } from '@lib/server/domain';
 import { UserInputError } from 'apollo-server-micro';
-import { Context } from 'vm';
-import { setTokenCookies, removeTokenCookies } from '~/lib/api/cookie';
-import { StateModel, User } from '~/lib/api/domain';
-import { getNewUserProperties, signInUser } from '~/lib/api/service/users-service';
-import { IUser, UserRole } from '~/lib/types';
-import { MutationArgs } from '../../types';
+import { getNewUserProperties, signInUser } from '@lib/server/service/users-service';
+import { setTokenCookies, removeTokenCookies } from '@lib/server/cookie';
+import { MutationArgs, Context } from '../../types';
 
 export async function signUp(_, args: MutationArgs<IUser>, context: Context, ____) {
   const user = args.input;
 
   const stateId = user.stateId
-    ? (await StateModel.query().findOne('code', user.stateId)).id
+    ? (await StateModel.query().findOne('code', user.stateId))?.id
     : undefined;
 
   const newUserProperties = await getNewUserProperties(user.password);

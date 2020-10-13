@@ -1,11 +1,8 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { ApolloServer } from 'apollo-server-micro';
 import * as Sentry from '@sentry/node';
+import { ApolloServer } from 'apollo-server-micro';
 import { Integrations } from '@sentry/tracing';
-import schema from '~/lib/graphql/schema';
-import { context } from '~/lib/graphql/apollo';
-import { connect } from '~/lib/api/db';
-import { constants } from '~/lib/api/secrets';
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { schema, context, connect, constants } from '@lib/server';
 
 connect();
 

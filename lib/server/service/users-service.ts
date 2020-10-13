@@ -1,10 +1,10 @@
+import * as Sentry from '@sentry/node';
+import Iron from '@hapi/iron';
 import { genSaltSync, hash, compare } from 'bcryptjs';
 import { v4 } from 'uuid';
-import Iron from '@hapi/iron';
-import * as Sentry from '@sentry/node';
 import { IUser, Optional, UserRole, JWTPayload, CanvasV2Error, OptionalPromise } from '../../types';
-import { UserModel } from '../domain';
 import { StatusCodes } from '../http-status-codes';
+import { UserModel } from '../domain';
 import { constants } from '../secrets';
 
 const SALT = genSaltSync();

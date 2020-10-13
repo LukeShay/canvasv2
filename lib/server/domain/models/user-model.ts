@@ -25,7 +25,7 @@ export class UserModel extends Model implements IUser {
 
   role!: UserRole;
 
-  state?: string | undefined;
+  stateId?: string | undefined;
 
   updatedAt!: string;
 

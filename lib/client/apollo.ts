@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
-import { ApolloClient, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { useMemo } from 'react';
-import typeDefs from '../graphql/type-defs';
-import resolvers from '../graphql/resolvers';
+import { cache } from './cache';
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 function createIsomorphLink() {
   if (typeof window === 'undefined') {
     const { SchemaLink } = require('@apollo/client/link/schema');
-    const { schema } = require('../graphql/schema');
+    const { schema } = require('../server');
     return new SchemaLink({ schema });
   }
   const { HttpLink } = require('@apollo/client/link/http');
@@ -24,9 +23,7 @@ function createIsomorphLink() {
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    resolvers,
-    typeDefs,
-    cache: new InMemoryCache(),
+    cache,
     link: createIsomorphLink(),
   });
 }

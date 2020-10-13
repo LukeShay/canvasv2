@@ -1,11 +1,12 @@
 import '../styles/tailwind.css';
-import React from 'react';
 import * as Sentry from '@sentry/node';
-import { AppProps } from 'next/app';
+import NavBar from '@components/NavBar';
+import React from 'react';
 import { ApolloProvider } from '@apollo/client';
+import { AppProps } from 'next/app';
 import { Integrations } from '@sentry/tracing';
-import NavBar from '~/components/NavBar';
-import { useApollo } from '~/lib/web/apollo';
+import { ToastContainer, Slide } from 'react-toastify';
+import { useApollo, useViewer } from '@lib/client';
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
   Sentry.init({
@@ -21,8 +22,18 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <NavBar />
-      <Component {...pageProps} />
+      <div className="min-h-screen">
+        <NavBar />
+        <Component {...pageProps} />
+        <ToastContainer
+          position="bottom-center"
+          transition={Slide}
+          draggablePercent={60}
+          hideProgressBar
+          autoClose={false}
+          pauseOnHover
+        />
+      </div>
     </ApolloProvider>
   );
 }

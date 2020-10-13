@@ -1,11 +1,9 @@
 import { AuthenticationError } from 'apollo-server-micro';
-import { Context } from 'vm';
-import { StateModel, User } from '~/lib/api/domain';
-import { IUser, UserRole } from '~/lib/types';
-import { MutationArgs } from '../../types';
+import { IUser, UserRole } from '@lib/types';
+import { StateModel, User } from '@lib/server/domain';
+import { MutationArgs, Context } from '../../types';
 
 export async function updateUser(_, { input: user }: MutationArgs<IUser>, context: Context) {
-  console.log(user);
   if (!context.user) {
     throw new AuthenticationError('Authentication token is invalid, please log in');
   }
@@ -13,7 +11,7 @@ export async function updateUser(_, { input: user }: MutationArgs<IUser>, contex
   const currentUser = new User(context.user as IUser);
 
   const stateId = user.stateId
-    ? (await StateModel.query().findOne('code', user.stateId)).id
+    ? (await StateModel.query().findOne('code', user.stateId))?.id
     : undefined;
 
   currentUser.update({ ...currentUser, ...user, stateId });
@@ -23,5 +21,5 @@ export async function updateUser(_, { input: user }: MutationArgs<IUser>, contex
   }
 
   await currentUser.save();
-  return currentUser;
+  return { user: currentUser };
 }

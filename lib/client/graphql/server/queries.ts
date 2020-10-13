@@ -23,6 +23,29 @@ export const ViewerQuery = gql`
   }
 `;
 
+export const ClientViewerQuery = gql`
+  query ClientViewerQuery {
+    clientViewer {
+      id
+      email
+      firstName
+      lastName
+      city
+      zip
+      role
+      stateId
+      address1
+      address2
+      state {
+        id
+        code
+        abbreviation
+        name
+      }
+    }
+  }
+`;
+
 export const StatesQuery = gql`
   query StatesQuery {
     states {

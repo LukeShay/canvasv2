@@ -1,5 +1,5 @@
-import { serialize, parse } from 'cookie';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { serialize, parse } from 'cookie';
 
 export function setTokenCookies(res: NextApiResponse, authorization: string, refresh: string) {
   const authorizationCookie = serialize('authorization', authorization, {

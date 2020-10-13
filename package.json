@@ -3,6 +3,9 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "analyze": "ANALYZE=true yarn build",
+    "analyze:server": "BUNDLE_ANALYZE=server yarn build",
+    "analyze:browser": "BUNDLE_ANALYZE=browser yarn build",
     "clean": "rm -rf dist/ out/ coverage/ .next/ junit.xml",
     "dev": "next dev",
     "export": "next export",
@@ -80,6 +83,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-test-renderer": "^16.13.1",
+    "react-toastify": "^6.0.9",
     "rimraf": "^3.0.2",
     "sqlite3": "^5.0.0",
     "tailwindcss": "^1.8.13",

@@ -2,7 +2,9 @@ import { makeExecutableSchema } from 'apollo-server-micro';
 import typeDefs from './type-defs';
 import resolvers from './resolvers';
 
-export default makeExecutableSchema({
+export const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });
+
+export * from './apollo';

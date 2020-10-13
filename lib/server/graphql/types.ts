@@ -1,5 +1,5 @@
 import { NextApiResponse } from 'next';
-import { UserModel } from '../api/domain';
+import { UserModel } from '../domain';
 
 export interface Context {
   user?: UserModel;

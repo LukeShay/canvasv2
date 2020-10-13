@@ -1,6 +1,6 @@
 import { AuthenticationError } from 'apollo-server-micro';
-import { Context } from 'vm';
-import { UserModel } from '~/lib/api/domain';
+import { UserModel } from '@lib/server/domain';
+import { Context } from '../../types';
 
 export async function viewer(_, __, context: Context, info) {
   if (!context.user) {

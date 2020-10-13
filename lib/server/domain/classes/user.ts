@@ -1,4 +1,4 @@
-import { CanvasV2Error, IUser, UserRole } from '../../../types';
+import { CanvasV2Error, IUser, UserRole } from '@lib/types';
 
 import { UserModel } from '../models/user-model';
 
@@ -85,11 +85,11 @@ export class User implements IUser {
         await this.checkEmail();
       }
 
-      user = await userModel.$query().updateAndFetch(this);
+      user = (await userModel.$query().updateAndFetch(this)) as IUser;
     } else {
       await this.checkEmail();
 
-      user = await UserModel.query().insertAndFetch(this);
+      user = (await UserModel.query().insertAndFetch(this)) as IUser;
     }
 
     this.update(user);

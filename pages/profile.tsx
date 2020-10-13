@@ -1,25 +1,33 @@
+import * as Sentry from '@sentry/node';
+import Centered from '@components/Centered';
+import Form from '@components/form/Form';
+import H2 from '@components/H2';
+import Input from '@components/form/Input';
+import PrimaryButton from '@components/buttons/PrimaryButton';
 import React, { SyntheticEvent } from 'react';
+import Row from '@components/form/Row';
+import Select from '@components/form/Select';
+import { IUser, UserRole } from '@lib/types';
+import {
+  SignOutMutation,
+  UpdateUserMutation,
+  StatesQuery,
+  Paths,
+  ClientViewerQuery,
+} from '@lib/client';
+import { toast } from 'react-toastify';
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-import * as Sentry from '@sentry/node';
-import { Paths } from '~/lib/web/paths';
-import Form from '~/components/form/Form';
-import Row from '~/components/form/Row';
-import Input from '~/components/form/Input';
-import Centered from '~/components/Centered';
-import PrimaryButton from '~/components/buttons/PrimaryButton';
-import Select from '~/components/form/Select';
-import H2 from '~/components/H2';
-import { useViewer } from '~/lib/web/hooks';
-import { SignOutMutation, UpdateUserMutation } from '~/lib/web/server/mutations';
-import { IUser, UserRole } from '~/lib/types';
-import { StatesQuery } from '~/lib/web/server/queries';
 
 function Profile() {
   const router = useRouter();
   const client = useApolloClient();
 
-  const { viewer, data, loading, error } = useViewer();
+  const { data, loading, error } = useQuery(ClientViewerQuery);
+  const { clientViewer: viewer } = data;
+
+  console.log(viewer);
+
   const { data: statesData } = useQuery(StatesQuery);
 
   const [signOut] = useMutation(SignOutMutation);
@@ -55,6 +63,10 @@ function Profile() {
       router.push(Paths.SIGN_IN);
     } catch (error) {
       Sentry.captureException(error);
+      toast(
+        'There was an error signing out out. Please try again. If this issue persists, contact support.',
+        { type: toast.TYPE.ERROR }
+      );
       // TODO: Handle errors
     }
   }
@@ -73,19 +85,19 @@ function Profile() {
         data: { updateUser: user },
       } = await updateUser({ variables: values });
       setValues(user);
+      toast('Your account was successfully updated.', { type: toast.TYPE.SUCCESS });
     } catch (error) {
       Sentry.captureException(error);
-      // TODO: Handle errors
+      toast(
+        'There was an error updating your profile. Please try again. If this issue persists, contact support.',
+        { type: toast.TYPE.ERROR }
+      );
     }
   }
 
   if (error) {
     return <p>{error.message}</p>;
   }
-
-  // if (!viewer || !states) {
-  //   return <div>Loading</div>;
-  // }
 
   return (
     <>

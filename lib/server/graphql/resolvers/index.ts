@@ -1,7 +1,7 @@
+import { signUp, signIn, signOut } from './authentication/mutations';
+import { states } from './state/queries';
 import { updateUser } from './user/mutations';
 import { viewer } from './user/queries';
-import { states } from './state/queries';
-import { signUp, signIn, signOut } from './authentication/mutations';
 
 export default {
   Query: {

@@ -1,13 +1,12 @@
-import { v4 } from 'uuid';
 import { ApolloError } from 'apollo-server-micro';
+import { CanvasV2Error, Optional } from '@lib/types';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { CanvasV2Error, Optional } from '../types';
-import { StatusCodes } from '../api/http-status-codes';
-
-import { getAuthorizationCookie, getRefreshCookie, setTokenCookies } from '../api/cookie';
-import { constants } from '../api/secrets';
-import { authorizeUser } from '../api/service/users-service';
-import { UserModel } from '../api/domain';
+import { v4 } from 'uuid';
+import { StatusCodes } from '../http-status-codes';
+import { UserModel } from '../domain';
+import { authorizeUser } from '../service/users-service';
+import { constants } from '../secrets';
+import { getAuthorizationCookie, getRefreshCookie, setTokenCookies } from '../cookie';
 
 export async function context(ctx: { req: NextApiRequest; res: NextApiResponse }) {
   const authorization = getAuthorizationCookie(ctx.req) || ctx.req.headers.authorization;
