@@ -34,7 +34,7 @@
   "dependencies": {
     "@apollo/client": "^3.2.3",
     "@hapi/iron": "^6.0.0",
-    "@sentry/browser": "^5.25.0",
+    "@sentry/browser": "^5.26.0",
     "@sentry/node": "^5.26.0",
     "@sentry/react": "^5.25.0",
     "@sentry/tracing": "^5.25.0",
