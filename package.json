@@ -49,7 +49,7 @@
     "@types/react": "^16.9.52",
     "@types/react-test-renderer": "^16.9.3",
     "@types/uuid": "^8.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.0",
     "@zeit/next-source-maps": "^0.0.3",
     "apollo-server-micro": "^2.18.2",
