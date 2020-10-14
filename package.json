@@ -40,7 +40,7 @@
     "@sentry/tracing": "^5.25.0",
     "@sentry/webpack-plugin": "^1.13.0",
     "@tailwindcss/ui": "^0.6.2",
-    "@testing-library/dom": "^7.25.0",
+    "@testing-library/dom": "^7.26.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@types/bcryptjs": "^2.4.2",
