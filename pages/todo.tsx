@@ -1,11 +1,11 @@
 import Centered from '@components/Centered';
-import H2 from '@components/H2';
+
 import React from 'react';
 
 function Todo() {
   return (
     <Centered>
-      <H2>Todo Page</H2>
+      <h2>Todo Page</h2>
     </Centered>
   );
 }

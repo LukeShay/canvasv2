@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node';
 import CenterForm from '@components/form/CenterForm';
 import Centered from '@components/Centered';
 import Form from '@components/form/Form';
-import H2 from '@components/H2';
+
 import Input from '@components/form/Input';
 import Link from 'next/link';
 import Logo from '@components/logos/Logo';
@@ -56,7 +56,7 @@ function SignIn() {
         <Centered>
           <Logo size={60} />
         </Centered>
-        <H2 className="mt-6 text-center">Sign into your account</H2>
+        <h2 className="mt-6 text-center">Sign into your account</h2>
         <p className="mt-2 text-center text-sm leading-5 text-gray-600">
           Or
           <Link href={Paths.SIGN_UP}>

@@ -19,79 +19,84 @@ function NavBar() {
 
   return (
     <div>
-      <nav className="flex items-center justify-between flex-wrap bg-white py-3 px-6 mb-8">
-        <Link href={Paths.HOME}>
-          <div
-            aria-label="Home"
-            className="flex items-center flex-shrink-0 text-gray-500 mr-6 cursor-pointer"
-          >
-            <Logo size={40} className="mr-4" />
-          </div>
-        </Link>
-        <div className="md:hidden">
-          <button
-            className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-indigo-500 hover:border-gray-900"
-            type="button"
-            id="main-menu"
-            aria-label="Main menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            <svg
-              className="fill-current h-3 w-3"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/5000/svg"
-            >
-              <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
-          </button>
-        </div>
-        <div className="hidden md:flex w-auto flex-grow items-center">
-          <div className="text-sm flex-grow">
-            <Link href={Paths.CLASSES}>
-              <a className="inline-block text-sm px-4 py-2 text-gray-500 hover:text-indigo-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
-                Classes
-              </a>
-            </Link>
-            <Link href={Paths.CALENDAR}>
-              <a className="inline-block text-sm px-4 py-2 text-gray-500 hover:text-indigo-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
-                Calendar
-              </a>
-            </Link>
-            <Link href={Paths.TODO}>
-              <a className="inline-block text-sm px-4 py-2 text-gray-500 hover:text-indigo-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
-                To-do
-              </a>
-            </Link>
-            {viewer?.role === UserRole.ADMIN && (
-              <a className="inline-block text-sm px-4 py-2 text-red-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
-                Admin
-              </a>
-            )}
-          </div>
-          <div className="md:mt-0 mt-2 pl-4">
-            <Link href={viewer ? Paths.PROFILE : Paths.SIGN_UP}>
-              <button
-                className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900transition duration-150 ease-in-out w-24 mr-4"
-                type="button"
-              >
-                {viewer ? 'Profile' : 'Sign up'}
-              </button>
-            </Link>
-            {!viewer && (
-              <Link href={viewer ? router.pathname : Paths.SIGN_IN}>
+      <div className="flex bg-white border-b border-gray-200 fixed top-0 inset-x-0 z-100 h-16 items-center">
+        <div className="w-full max-w-screen-xl relative mx-auto px-6">
+          <div>
+            <nav className="flex items-center -mx-6 justify-between">
+              <div className="mx-3 md:mx-6">
+                <Link href={Paths.HOME}>
+                  <div aria-label="Home" className="mr-6 cursor-pointer">
+                    <Logo size={40} className="mr-4" />
+                  </div>
+                </Link>
+              </div>
+              <div className="md:hidden mr-3">
                 <button
-                  className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 transition duration-150 ease-in-out w-24"
+                  className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-indigo-500 hover:border-gray-900"
                   type="button"
+                  id="main-menu"
+                  aria-label="Main menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
                 >
-                  Sign In
+                  <svg
+                    className="fill-current h-3 w-3"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/5000/svg"
+                  >
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                  </svg>
                 </button>
-              </Link>
-            )}
+              </div>
+              <div className="hidden md:flex flex-grow min-w-0 lg:w-3/4 xl:w-4/5">
+                <div className="w-full min-w-0">
+                  <Link href={Paths.CLASSES}>
+                    <a className="inline-block text-sm px-4 py-2 text-gray-500 hover:text-indigo-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
+                      Classes
+                    </a>
+                  </Link>
+                  <Link href={Paths.CALENDAR}>
+                    <a className="inline-block text-sm px-4 py-2 text-gray-500 hover:text-indigo-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
+                      Calendar
+                    </a>
+                  </Link>
+                  <Link href={Paths.TODO}>
+                    <a className="inline-block text-sm px-4 py-2 text-gray-500 hover:text-indigo-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
+                      To-do
+                    </a>
+                  </Link>
+                  {viewer?.role === UserRole.ADMIN && (
+                    <a className="inline-block text-sm px-4 py-2 text-red-500 leading-none rounded mr-4 transition duration-150 ease-in-out">
+                      Admin
+                    </a>
+                  )}
+                </div>
+                <div className="hidden md:flex md:items-center md:justify-between">
+                  <Link href={viewer ? Paths.PROFILE : Paths.SIGN_UP}>
+                    <button
+                      className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900transition duration-150 ease-in-out w-24 mr-4"
+                      type="button"
+                    >
+                      {viewer ? 'Profile' : 'Sign up'}
+                    </button>
+                  </Link>
+                  {!viewer && (
+                    <Link href={viewer ? router.pathname : Paths.SIGN_IN}>
+                      <button
+                        className="inline-block text-sm px-4 py-2 leading-none text-indigo-500 hover:text-indigo-900 border rounded border-indigo-500 hover:border-indigo-900 transition duration-150 ease-in-out w-24"
+                        type="button"
+                      >
+                        Sign In
+                      </button>
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </nav>
           </div>
         </div>
-      </nav>
+      </div>
       {open && (
         <div className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
           <div className="rounded-lg shadow-md">

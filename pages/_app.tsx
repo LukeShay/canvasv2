@@ -1,4 +1,4 @@
-import '../styles/tailwind.css';
+import '../styles/main.css';
 import * as Sentry from '@sentry/node';
 import NavBar from '@components/NavBar';
 import React from 'react';
@@ -6,7 +6,7 @@ import { ApolloProvider } from '@apollo/client';
 import { AppProps } from 'next/app';
 import { Integrations } from '@sentry/tracing';
 import { ToastContainer, Slide } from 'react-toastify';
-import { useApollo, useViewer } from '@lib/client';
+import { useApollo } from '@lib/client';
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
   Sentry.init({

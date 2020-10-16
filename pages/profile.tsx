@@ -1,33 +1,24 @@
 import * as Sentry from '@sentry/node';
 import Centered from '@components/Centered';
 import Form from '@components/form/Form';
-import H2 from '@components/H2';
+
 import Input from '@components/form/Input';
 import PrimaryButton from '@components/buttons/PrimaryButton';
 import React, { SyntheticEvent } from 'react';
 import Row from '@components/form/Row';
 import Select from '@components/form/Select';
 import { IUser, UserRole } from '@lib/types';
-import {
-  SignOutMutation,
-  UpdateUserMutation,
-  StatesQuery,
-  Paths,
-  ClientViewerQuery,
-} from '@lib/client';
+import { SignOutMutation, UpdateUserMutation, StatesQuery, Paths, useViewer } from '@lib/client';
 import { toast } from 'react-toastify';
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
+import Page from '~/components/Page';
 
 function Profile() {
   const router = useRouter();
   const client = useApolloClient();
 
-  const { data, loading, error } = useQuery(ClientViewerQuery);
-  const { clientViewer: viewer } = data;
-
-  console.log(viewer);
-
+  const { data, error, loading, viewer } = useViewer();
   const { data: statesData } = useQuery(StatesQuery);
 
   const [signOut] = useMutation(SignOutMutation);
@@ -100,17 +91,17 @@ function Profile() {
   }
 
   return (
-    <>
-      <H2 className="mt-6 text-center">Your Profile</H2>
-      <Centered>
+    <Page>
+      <h2 className="mt-6 text-center">Your Profile</h2>
+      <div className="w-full flex justify-center">
         <div className="max-w-4xl w-full md:flex p-10">
           <div className="w-full md:w-1/3">
-            <Centered>
+            <div className="flex justify-center">
               <img src="/person.svg" width={200} height={200} className="mt-4" alt="person" />
-            </Centered>
+            </div>
           </div>
           <div className="w-full md:w-2/3">
-            <Centered className="text-left">
+            <div className="flex justify-center text-left">
               <Form
                 className={!viewer || !statesData ? 'animate-pulse' : undefined}
                 onSubmit={handleSubmit}
@@ -253,11 +244,11 @@ function Profile() {
                   </div>
                 </Row>
               </Form>
-            </Centered>
+            </div>
           </div>
         </div>
-      </Centered>
-    </>
+      </div>
+    </Page>
   );
 }
 

@@ -1,0 +1,94 @@
+@tailwind base;
+
+@import 'react-toastify/dist/ReactToastify.min.css';
+
+.required:after {
+  content: ' *';
+  color: red;
+}
+
+h1 {
+  @apply text-4xl;
+  @apply leading-9;
+  @apply text-gray-900;
+}
+
+h2 {
+  @apply text-3xl;
+  @apply leading-9;
+  @apply text-gray-900;
+}
+
+h3 {
+  @apply text-2xl;
+  @apply leading-9;
+  @apply text-gray-900;
+}
+
+h4 {
+  @apply text-xl;
+  @apply leading-9;
+  @apply text-gray-900;
+}
+
+h5 {
+  @apply text-lg;
+  @apply leading-9;
+  @apply text-gray-900;
+}
+
+h6 {
+  @apply font-medium;
+  @apply leading-9;
+  @apply text-gray-900;
+}
+
+ul {
+  @apply list-disc;
+  @apply pl-4;
+}
+
+ol {
+  @apply list-decimal;
+}
+
+.Toastify__toast-container {
+  @apply min-w-max-content;
+}
+
+.Toastify__toast {
+  @apply rounded;
+}
+
+.Toastify__toast--error {
+  @apply bg-red-100;
+  @apply text-red-500;
+  @apply border;
+  @apply border-red-900;
+}
+
+.Toastify__close-button--error {
+  @apply text-red-500;
+}
+
+.Toastify__toast--info {
+  @apply bg-blue-100;
+  @apply text-blue-500;
+  @apply border;
+  @apply border-blue-900;
+}
+
+.Toastify__close-button--info {
+  @apply text-blue-500;
+}
+
+.Toastify__toast--success {
+  @apply bg-teal-100;
+  @apply text-teal-500;
+  @apply border;
+  @apply border-teal-900;
+}
+
+.Toastify__close-button--success {
+  @apply text-teal-500;
+}
