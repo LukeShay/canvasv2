@@ -5,7 +5,7 @@ import { getNewUserProperties, signInUser } from '@lib/server/service/users-serv
 import { setTokenCookies, removeTokenCookies } from '@lib/server/cookie';
 import { MutationArgs, Context } from '../../types';
 
-export async function signUp(_, args: MutationArgs<IUser>, context: Context, ____) {
+export async function signUp(_, args: MutationArgs<IUser>, context: Context) {
   const user = args.input;
 
   const stateId = user.stateId
@@ -26,8 +26,7 @@ export async function signUp(_, args: MutationArgs<IUser>, context: Context, ___
 export async function signIn(
   _,
   { input: { email, password, remember } }: MutationArgs<IUser & { remember: boolean }>,
-  context: Context,
-  ____
+  context: Context
 ) {
   const signIn = await signInUser(email, password, remember);
 
@@ -39,7 +38,7 @@ export async function signIn(
   throw new UserInputError('Invalid email and password combination');
 }
 
-export async function signOut(_, __, context: Context, ____) {
+export async function signOut(_, __, context: Context) {
   removeTokenCookies(context.res);
   return true;
 }

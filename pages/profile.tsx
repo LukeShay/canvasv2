@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/node';
-import Centered from '@components/Centered';
 import Form from '@components/form/Form';
 
 import Input from '@components/form/Input';
