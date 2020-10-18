@@ -2,4 +2,4 @@ import mutations from './mutations';
 import queries from './queries';
 import types from './types';
 
-export default [inputs, types, mutations, queries];
+export default [types, mutations, queries];
