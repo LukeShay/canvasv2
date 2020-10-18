@@ -7,7 +7,7 @@ import * as Sentry from '@sentry/node';
 import React from 'react';
 import { useApollo } from '../lib/client';
 import NavBar from '../components/NavBar';
-import { ViewerProvider } from '~/components/AuthProvider';
+import { ViewerProvider } from '../components/AuthProvider';
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
   Sentry.init({

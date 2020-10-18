@@ -1,6 +1,6 @@
 import { create } from 'react-test-renderer';
 import React from 'react';
-import Error from '../../pages/error';
+import Error from '../../src/pages/error';
 
 describe('error', () => {
   it('should match snapshot', () => {

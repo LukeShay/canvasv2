@@ -12,7 +12,7 @@ import Input from '../components/form/Input';
 import Logo from '../components/logos/Logo';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
-import Page from '~/components/Page';
+import Page from '../components/Page';
 
 export interface ValuesState {
   email: string;

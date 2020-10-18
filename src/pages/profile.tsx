@@ -11,7 +11,7 @@ import Page from '../components/Page';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
-import { useViewerContext } from '~/components/AuthProvider';
+import { useViewerContext } from '../components/AuthProvider';
 
 function Profile() {
   const router = useRouter();

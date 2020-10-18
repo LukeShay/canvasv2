@@ -1,8 +1,8 @@
-import { IUser, UserRole } from '@lib/types';
-import { StateModel, User } from '@lib/server/domain';
 import { UserInputError } from 'apollo-server-micro';
-import { getNewUserProperties, signInUser } from '@lib/server/service/users-service';
-import { setTokenCookies, removeTokenCookies } from '@lib/server/cookie';
+import { IUser, UserRole } from '../../../../types';
+import { StateModel, User } from '../../../domain';
+import { getNewUserProperties, signInUser } from '../../../service/users-service';
+import { setTokenCookies, removeTokenCookies } from '../../../cookie';
 import { MutationArgs, Context } from '../../types';
 
 export async function signUp(_, args: MutationArgs<IUser>, context: Context) {

@@ -1,5 +1,5 @@
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { IUser } from '@lib/types';
+import { IUser } from '../types';
 
 export const viewerVar = makeVar<IUser | null>(null);
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import ChildrenProps from './ChildrenProps';
-import { IUser, Optional } from '~/lib/types';
-import { Paths, useViewer } from '~/lib/client';
+import { IUser, Optional } from '../lib/types';
+import { Paths, useViewer } from '../lib/client';
 
 const ViewerContext = React.createContext<{ viewer: Optional<IUser> }>({ viewer: undefined });
 

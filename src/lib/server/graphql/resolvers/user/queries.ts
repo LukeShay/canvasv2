@@ -1,5 +1,5 @@
 import { AuthenticationError } from 'apollo-server-micro';
-import { UserModel } from '@lib/server/domain';
+import { UserModel } from '../../../domain';
 import { Context } from '../../types';
 
 export async function viewer(_, __, context: Context, info) {

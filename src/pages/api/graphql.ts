@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node';
 import { ApolloServer } from 'apollo-server-micro';
 import { Integrations } from '@sentry/tracing';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { schema, context, connect, constants } from '@lib/server';
+import { schema, context, connect, constants } from '../../lib/server';
 
 connect();
 

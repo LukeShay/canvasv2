@@ -1,4 +1,4 @@
-import { StateModel } from '../../../../../lib/server/domain';
+import { StateModel } from '../../../../../src/lib/server/domain';
 
 describe('state model', () => {
   it("should have idColum 'id'", () => {

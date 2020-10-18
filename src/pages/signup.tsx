@@ -13,7 +13,7 @@ import Logo from '../components/logos/Logo';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
-import Page from '~/components/Page';
+import Page from '../components/Page';
 
 export interface ValuesState {
   firstName: string;

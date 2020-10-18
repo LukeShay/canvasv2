@@ -1,7 +1,7 @@
 import { ApolloError } from 'apollo-server-micro';
-import { CanvasV2Error, Optional } from '@lib/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { v4 } from 'uuid';
+import { CanvasV2Error, Optional } from '../../types';
 import { StatusCodes } from '../http-status-codes';
 import { UserModel } from '../domain';
 import { authorizeUser } from '../service/users-service';

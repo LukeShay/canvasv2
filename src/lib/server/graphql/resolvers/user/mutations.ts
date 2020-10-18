@@ -1,6 +1,6 @@
 import { AuthenticationError } from 'apollo-server-micro';
-import { IUser, UserRole } from '@lib/types';
-import { StateModel, User } from '@lib/server/domain';
+import { IUser, UserRole } from '../../../../types';
+import { StateModel, User } from '../../../domain';
 import { MutationArgs, Context } from '../../types';
 
 export async function updateUser(_, { input: user }: MutationArgs<IUser>, context: Context) {
