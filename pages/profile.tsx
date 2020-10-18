@@ -1,17 +1,16 @@
 import * as Sentry from '@sentry/node';
-import Form from '@components/form/Form';
-
-import Input from '@components/form/Input';
-import PrimaryButton from '@components/buttons/PrimaryButton';
-import React, { SyntheticEvent } from 'react';
-import Row from '@components/form/Row';
-import Select from '@components/form/Select';
-import { IUser, UserRole } from '@lib/types';
-import { SignOutMutation, UpdateUserMutation, StatesQuery, Paths, useViewer } from '@lib/client';
 import { toast } from 'react-toastify';
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-import Page from '~/components/Page';
+import React, { SyntheticEvent } from 'react';
+import { IUser, UserRole } from '../lib/types';
+import { SignOutMutation, UpdateUserMutation, StatesQuery, Paths, useViewer } from '../lib/client';
+import Form from '../components/form/Form';
+import Input from '../components/form/Input';
+import Page from '../components/Page';
+import PrimaryButton from '../components/buttons/PrimaryButton';
+import Row from '../components/form/Row';
+import Select from '../components/form/Select';
 
 function Profile() {
   const router = useRouter();

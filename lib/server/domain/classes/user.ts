@@ -1,4 +1,4 @@
-import { CanvasV2Error, IUser, UserRole } from '@lib/types';
+import { CanvasV2Error, IUser, UserRole } from '../../../types';
 
 import { UserModel } from '../models/user-model';
 

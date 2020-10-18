@@ -1,6 +1,5 @@
-import Centered from '@components/Centered';
-
 import React from 'react';
+import Centered from '../components/Centered';
 
 function Home() {
   return (

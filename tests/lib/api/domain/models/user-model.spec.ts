@@ -1,4 +1,4 @@
-import { UserModel } from '@lib/server/domain';
+import { UserModel } from '../../../../../lib/server/domain';
 
 describe('user model', () => {
   it("should have idColum 'id'", () => {

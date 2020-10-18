@@ -1,12 +1,12 @@
 import '../styles/main.css';
-import * as Sentry from '@sentry/node';
-import NavBar from '@components/NavBar';
-import React from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { AppProps } from 'next/app';
 import { Integrations } from '@sentry/tracing';
 import { ToastContainer, Slide } from 'react-toastify';
-import { useApollo } from '@lib/client';
+import * as Sentry from '@sentry/node';
+import React from 'react';
+import { useApollo } from '../lib/client';
+import NavBar from '../components/NavBar';
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
   Sentry.init({

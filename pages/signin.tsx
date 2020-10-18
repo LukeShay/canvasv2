@@ -1,17 +1,16 @@
-import * as Sentry from '@sentry/node';
-import CenterForm from '@components/form/CenterForm';
-import Centered from '@components/Centered';
-import Form from '@components/form/Form';
-
-import Input from '@components/form/Input';
-import Link from 'next/link';
-import Logo from '@components/logos/Logo';
-import PrimaryButton from '@components/buttons/PrimaryButton';
-import React from 'react';
-import Row from '@components/form/Row';
-import { Paths, useViewer, SignInMutation } from '@lib/client';
 import { useMutation } from '@apollo/client';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
+import * as Sentry from '@sentry/node';
+import Link from 'next/link';
+import React from 'react';
+import { Paths, useViewer, SignInMutation } from '../lib/client';
+import Centered from '../components/Centered';
+import CenterForm from '../components/form/CenterForm';
+import Form from '../components/form/Form';
+import Input from '../components/form/Input';
+import Logo from '../components/logos/Logo';
+import PrimaryButton from '../components/buttons/PrimaryButton';
+import Row from '../components/form/Row';
 
 export interface ValuesState {
   email: string;
