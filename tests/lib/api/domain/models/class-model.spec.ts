@@ -1,4 +1,4 @@
-import { ClassModel } from '../../../../../src/lib/server/domain';
+import { ClassModel } from '../../../../../lib/server/domain';
 
 describe('class model', () => {
   it("should have idColum 'id'", () => {
