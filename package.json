@@ -6,7 +6,7 @@
     "analyze": "ANALYZE=true yarn build",
     "analyze:server": "BUNDLE_ANALYZE=server yarn build",
     "analyze:browser": "BUNDLE_ANALYZE=browser yarn build",
-
+    "clean": "rm -rf dist/ out/ coverage/ .next/ junit.xml",
     "dev": "next dev",
     "export": "next export",
     "format": "yarn lint --fix",
@@ -15,7 +15,6 @@
     "migrate:local": "yarn migrate --env local",
     "migrate:remote": "yarn migrate --env remote",
     "migrate:test": "yarn migrate --env test",
-    "prebuild": "yarn clean",
     "seed": "knex seed:run",
     "seed:local": "yarn seed --env local",
     "seed:remote": "yarn seed --env remote",
