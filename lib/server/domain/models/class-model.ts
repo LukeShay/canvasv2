@@ -26,6 +26,7 @@ export class ClassModel extends Model {
   static get relationMappings(): RelationMappings {
     const { UserModel } = require('./user-model');
     const { AssistantModel } = require('./assistant-model');
+    const { StudentModel } = require('./student-model');
 
     return {
       admin: {
@@ -39,10 +40,26 @@ export class ClassModel extends Model {
       assistants: {
         join: {
           from: `${ClassModel.tableName}.${ClassModel.idColumn}`,
-          to: `${AssistantModel.tableName}.classId`,
+          through: {
+            from: `${AssistantModel.tableName}.classId`,
+            to: `${AssistantModel.tableName}.assistantId`,
+          },
+          to: `${UserModel.tableName}.${UserModel.tableName}`,
         },
-        modelClass: AssistantModel,
-        relation: Model.HasManyRelation,
+        modelClass: UserModel,
+        relation: Model.ManyToManyRelation,
+      },
+      students: {
+        join: {
+          from: `${ClassModel.tableName}.${ClassModel.idColumn}`,
+          through: {
+            from: `${StudentModel.tableName}.classId`,
+            to: `${StudentModel.tableName}.studentId`,
+          },
+          to: `${UserModel.tableName}.${UserModel.tableName}`,
+        },
+        modelClass: UserModel,
+        relation: Model.ManyToManyRelation,
       },
     };
   }

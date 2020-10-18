@@ -1,7 +1,7 @@
 import React from 'react';
 import Page from '~/components/Page';
 
-function Error() {
+function NotFound() {
   return (
     <Page>
       <div className="w-full flex justify-center">
@@ -11,4 +11,4 @@ function Error() {
   );
 }
 
-export default Error;
+export default NotFound;

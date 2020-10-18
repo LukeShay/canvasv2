@@ -1,11 +1,11 @@
 import React from 'react';
-import Centered from '../components/Centered';
+import Page from '~/components/Page';
 
 function Todo() {
   return (
-    <Centered>
+    <Page>
       <h2>Todo Page</h2>
-    </Centered>
+    </Page>
   );
 }
 

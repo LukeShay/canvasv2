@@ -1,11 +1,11 @@
 import React from 'react';
-import Centered from '../components/Centered';
+import Page from '~/components/Page';
 
 function Calendar() {
   return (
-    <Centered>
+    <Page>
       <h2>Calendar Page</h2>
-    </Centered>
+    </Page>
   );
 }
 

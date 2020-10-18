@@ -1,7 +1,9 @@
 import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 import React from 'react';
-import { IUser, Optional } from '../types';
+import { IUser, Optional, UserRole } from '../types';
 import { ViewerQuery } from './graphql/server/queries';
+import { Paths } from './paths';
 
 export function useViewer() {
   const [viewer, setViewer] = React.useState<Optional<IUser>>();

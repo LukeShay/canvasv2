@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/node';
 import React from 'react';
 import { useApollo } from '../lib/client';
 import NavBar from '../components/NavBar';
+import { ViewerProvider } from '~/components/AuthProvider';
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
   Sentry.init({
@@ -22,18 +23,20 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <div className="min-h-screen">
-        <NavBar />
-        <Component {...pageProps} />
-        <ToastContainer
-          position="bottom-center"
-          transition={Slide}
-          draggablePercent={60}
-          hideProgressBar
-          autoClose={false}
-          pauseOnHover
-        />
-      </div>
+      <ViewerProvider>
+        <div className="min-h-screen">
+          <NavBar />
+          <Component {...pageProps} />
+          <ToastContainer
+            position="bottom-center"
+            transition={Slide}
+            draggablePercent={60}
+            hideProgressBar
+            autoClose={false}
+            pauseOnHover
+          />
+        </div>
+      </ViewerProvider>
     </ApolloProvider>
   );
 }

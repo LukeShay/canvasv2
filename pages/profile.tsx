@@ -4,19 +4,20 @@ import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React, { SyntheticEvent } from 'react';
 import { IUser, UserRole } from '../lib/types';
-import { SignOutMutation, UpdateUserMutation, StatesQuery, Paths, useViewer } from '../lib/client';
+import { SignOutMutation, UpdateUserMutation, StatesQuery, Paths } from '../lib/client';
 import Form from '../components/form/Form';
 import Input from '../components/form/Input';
 import Page from '../components/Page';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
+import { useViewerContext } from '~/components/AuthProvider';
 
 function Profile() {
   const router = useRouter();
   const client = useApolloClient();
+  const { viewer } = useViewerContext();
 
-  const { data, error, loading, viewer } = useViewer();
   const { data: statesData } = useQuery(StatesQuery);
 
   const [signOut] = useMutation(SignOutMutation);
@@ -30,12 +31,6 @@ function Profile() {
     password: '',
     role: UserRole.BASIC,
   });
-
-  React.useEffect(() => {
-    if ((!data || error) && !loading) {
-      router.push(Paths.SIGN_IN);
-    }
-  }, [data, loading, error]);
 
   React.useEffect(() => {
     if (viewer) {
@@ -53,10 +48,9 @@ function Profile() {
     } catch (error) {
       Sentry.captureException(error);
       toast(
-        'There was an error signing out out. Please try again. If this issue persists, contact support.',
+        'There was an error signing out. Please try again. If this issue persists, contact support.',
         { type: toast.TYPE.ERROR }
       );
-      // TODO: Handle errors
     }
   }
 
@@ -82,10 +76,6 @@ function Profile() {
         { type: toast.TYPE.ERROR }
       );
     }
-  }
-
-  if (error) {
-    return <p>{error.message}</p>;
   }
 
   return (

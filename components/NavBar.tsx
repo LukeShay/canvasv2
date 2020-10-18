@@ -2,16 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Paths } from '../lib/client/paths';
-import { useViewer } from '../lib/client/hooks';
 import { UserRole } from '../lib/types';
 import Logo from './logos/Logo';
+import { useViewerContext } from './AuthProvider';
 
 function NavBar() {
   const router = useRouter();
 
   const [open, setOpen] = React.useState(false);
 
-  const { viewer } = useViewer();
+  const { viewer } = useViewerContext();
 
   function handleClick() {
     setOpen(!open);

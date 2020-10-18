@@ -6,6 +6,7 @@ extends:
   - plugin:prettier/recommended
   - plugin:jest/all
 plugins:
+  - react
   - prettier
   - node
   - jest
