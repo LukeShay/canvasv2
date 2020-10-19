@@ -53,7 +53,23 @@ Object {
   "assistants": Object {
     "join": Object {
       "from": "Classes.id",
-      "to": "Assistants.classId",
+      "through": Object {
+        "from": "Assistants.classId",
+        "to": "Assistants.assistantId",
+      },
+      "to": "Users.Users",
+    },
+    "modelClass": [Function],
+    "relation": [Function],
+  },
+  "students": Object {
+    "join": Object {
+      "from": "Classes.id",
+      "through": Object {
+        "from": "Students.classId",
+        "to": "Students.studentId",
+      },
+      "to": "Users.Users",
     },
     "modelClass": [Function],
     "relation": [Function],
