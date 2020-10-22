@@ -23,7 +23,7 @@ module.exports = {
   remote: {
     client: 'mysql',
     connection: {
-      database: process.env.SQL_RISIBLE_DB_INSTANCE_IP,
+      database: process.env.SQL_RISIBLE_DB,
       host: process.env.SQL_RISIBLE_DB_INSTANCE_IP,
       user: process.env.SQL_RISIBLE_DB_INSTANCE_USERNAME,
       password: process.env.SQL_RISIBLE_DB_INSTANCE_PASSWORD,
