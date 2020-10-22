@@ -1,11 +1,9 @@
-import { AuthenticationError } from 'apollo-server-micro';
+import { authenticated } from '../../../authenticator';
 import { UserModel } from '../../../domain';
 import { Context } from '../../types';
 
 export async function viewer(_, __, context: Context, info) {
-  if (!context.user) {
-    throw new AuthenticationError('Authentication token is invalid, please log in');
-  }
+  authenticated(context);
 
   let user = context.user as UserModel;
 

@@ -1,12 +1,10 @@
-import { AuthenticationError } from 'apollo-server-micro';
 import { IUser, UserRole } from '../../../../types';
+import { authenticated } from '../../../authenticator';
 import { StateModel, User } from '../../../domain';
 import { MutationArgs, Context } from '../../types';
 
 export async function updateUser(_, { input: user }: MutationArgs<IUser>, context: Context) {
-  if (!context.user) {
-    throw new AuthenticationError('Authentication token is invalid, please log in');
-  }
+  authenticated(context);
 
   const currentUser = new User(context.user as IUser);
 

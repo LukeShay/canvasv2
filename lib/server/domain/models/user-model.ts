@@ -72,7 +72,7 @@ export class UserModel extends Model implements IUser {
         join: {
           from: `${UserModel.tableName}.${UserModel.idColumn}`,
           through: {
-            from: `${AssistantModel.tableName}.studentId`,
+            from: `${AssistantModel.tableName}.assistantId`,
             to: `${AssistantModel.tableName}.classId`,
           },
           to: `${ClassModel.tableName}.${ClassModel.idColumn}`,
@@ -111,6 +111,14 @@ export class UserModel extends Model implements IUser {
         },
         modelClass: ClassModel,
         relation: Model.ManyToManyRelation,
+      },
+      adminClasses: {
+        join: {
+          from: `${UserModel.tableName}.${UserModel.idColumn}`,
+          to: `${ClassModel.tableName}.adminId`,
+        },
+        modelClass: ClassModel,
+        relation: Model.HasManyRelation,
       },
     };
   }

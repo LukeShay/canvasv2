@@ -1,13 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from 'apollo-server-micro';
 
 export default gql`
-  type StateSchema {
-    id: ID!
-    abbreviation: String!
-    code: String!
-    name: String!
-  }
-
   type UserSchema {
     id: ID!
     email: String!

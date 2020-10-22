@@ -23,11 +23,11 @@ module.exports = {
   remote: {
     client: 'mysql',
     connection: {
-      database: process.env.SQL_DATABASE,
-      host: process.env.SQL_HOST,
-      user: process.env.SQL_USER,
-      password: process.env.SQL_PASSWORD,
-      port: parseInt(process.env.SQL_PORT),
+      database: process.env.SQL_RISIBLE_DB_INSTANCE_IP,
+      host: process.env.SQL_RISIBLE_DB_INSTANCE_IP,
+      user: process.env.SQL_RISIBLE_DB_INSTANCE_USERNAME,
+      password: process.env.SQL_RISIBLE_DB_INSTANCE_PASSWORD,
+      port: parseInt(process.env.SQL_RISIBLE_DB_INSTANCE_PORT),
       ssl: true,
     },
     pool: {

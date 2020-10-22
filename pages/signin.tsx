@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify';
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import * as Sentry from '@sentry/node';
 import Link from 'next/link';
 import React from 'react';
-import { Paths, SignInMutation } from '../lib/client';
+import { Paths } from '../lib/client';
 import Centered from '../components/Centered';
 import CenterForm from '../components/form/CenterForm';
 import Form from '../components/form/Form';
@@ -13,6 +13,17 @@ import Logo from '../components/logos/Logo';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Page from '../components/Page';
+
+const SignInMutation = gql`
+  mutation SignInMutation($email: String!, $password: String!) {
+    signIn(input: { email: $email, password: $password }) {
+      user {
+        id
+        email
+      }
+    }
+  }
+`;
 
 export interface ValuesState {
   email: string;

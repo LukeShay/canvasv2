@@ -1,0 +1,66 @@
+{% set deploymentName = env['deployment']  %}
+{% set instanceName = deploymentName + '-db-instance'  %}
+{% set databaseName = deploymentName + '-db'  %}
+{% set bucketName = deploymentName + '-bucket'  %}
+{% set databaseUserName = deploymentName + '-db-user'  %}
+{% set databaseUserPassword = properties["databaseUserPassword"]  %}
+{% set databaseRootPassword = properties["databaseRootPassword"]  %}
+
+resources:
+  - name: {{ instanceName }}
+    type: sqladmin.v1beta4.instance
+    properties:
+      databaseVersion: MYSQL_8_0
+      maxDiskSize: 10000000000
+      currentDiskSize: 10000000000
+      settings:
+        tier: db-f1-micro
+        storageAutoResize: false
+        dataDiskType: PD_HDD
+        dataDiskSizeGb: 10
+        region: us-central1
+        rootPassword: {{ databaseRootPassword }}
+        backupConfiguration:
+          enabled: false
+        ipConfiguration:
+          ipv4Enabled: true
+          requireSsl: false
+          authorizedNetworks:
+            - value: 0.0.0.0/0
+  - name: {{ databaseName }}
+    type: sqladmin.v1beta4.database
+    properties:
+      name: {{ databaseName }}
+      instance: $(ref.{{ instanceName }}.name)
+      charset: utf8
+  - name: {{ databaseName }}-dev
+    type: sqladmin.v1beta4.database
+    properties:
+      name: {{ databaseName }}-dev
+      instance: $(ref.{{ instanceName }}.name)
+      charset: utf8
+  - name: {{ databaseUserName }}
+    type: sqladmin.v1beta4.user
+    metadata:
+      dependsOn:
+        - {{ databaseName }}
+        - {{ databaseName }}-dev
+    properties:
+      name: {{ databaseUserName }}
+      instance: $(ref.{{ instanceName }}.name)
+      password: {{ databaseUserPassword }}
+      host: "%"
+  - name: {{ bucketName }}
+    type: storage.v1.bucket
+    properties:
+      cors:
+        - maxAgeSeconds: 10
+          method:
+            - GET
+            - OPTIONS
+          origin:
+            - '*'
+          responseHeader:
+            - Content-Type
+            - Last-Modified
+            - Expires

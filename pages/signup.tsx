@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify';
-import { useMutation, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import * as Sentry from '@sentry/node';
 import Link from 'next/link';
 import React from 'react';
-import { SignUpMutation, StatesQuery, Paths } from '../lib/client';
+import { StatesQuery, Paths } from '../lib/client';
 import Centered from '../components/Centered';
 import CenterForm from '../components/form/CenterForm';
 import Form from '../components/form/Form';
@@ -14,6 +14,35 @@ import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
 import Page from '../components/Page';
+
+const SignUpMutation = gql`
+  mutation SignUpMutation(
+    $email: String!
+    $password: String!
+    $firstName: String!
+    $lastName: String!
+    $city: String
+    $stateId: String
+    $zip: String
+  ) {
+    signUp(
+      input: {
+        email: $email
+        password: $password
+        firstName: $firstName
+        lastName: $lastName
+        city: $city
+        stateId: $stateId
+        zip: $zip
+      }
+    ) {
+      user {
+        id
+        email
+      }
+    }
+  }
+`;
 
 export interface ValuesState {
   firstName: string;

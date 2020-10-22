@@ -1,9 +1,30 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
 import { Model, RelationMappings, JSONSchema } from 'objection';
+import { IClass } from '../../../types';
 import Constants from '../constants';
 
-export class ClassModel extends Model {
+export class ClassModel extends Model implements IClass {
+  adminId: string;
+
+  building?: string | undefined;
+
+  code: string;
+
+  description?: string | undefined;
+
+  name: string;
+
+  room?: string | undefined;
+
+  coverPhoto?: string | undefined;
+
+  id: string;
+
+  createdAt?: string | undefined;
+
+  updatedAt?: string | undefined;
+
   static tableName = Constants.CLASSES_TABLE;
 
   static idColumn = 'id';

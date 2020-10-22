@@ -1,13 +1,10 @@
 import { gql } from 'apollo-server-micro';
 
 export default gql`
-  type ClassSchema {
+  type StateSchema {
     id: ID!
-    adminId: String!
-    building: String
+    abbreviation: String!
     code: String!
-    description: String
     name: String!
-    room: String
   }
 `;

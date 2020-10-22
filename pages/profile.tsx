@@ -1,10 +1,10 @@
 import * as Sentry from '@sentry/node';
 import { toast } from 'react-toastify';
-import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { gql, useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React, { SyntheticEvent } from 'react';
 import { IUser, UserRole } from '../lib/types';
-import { SignOutMutation, UpdateUserMutation, StatesQuery, Paths } from '../lib/client';
+import { StatesQuery, Paths } from '../lib/client';
 import Form from '../components/form/Form';
 import Input from '../components/form/Input';
 import Page from '../components/Page';
@@ -12,6 +12,59 @@ import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
 import { useViewerContext } from '../components/AuthProvider';
+
+const SignOutMutation = gql`
+  mutation SignOutMutation {
+    signOut
+  }
+`;
+
+const UpdateUserMutation = gql`
+  mutation UpdateUserMutation(
+    $email: String!
+    $firstName: String!
+    $lastName: String!
+    $password: String
+    $address1: String
+    $address2: String
+    $city: String
+    $stateId: String
+    $zip: String
+  ) {
+    updateUser(
+      input: {
+        email: $email
+        password: $password
+        firstName: $firstName
+        lastName: $lastName
+        address1: $address1
+        address2: $address2
+        city: $city
+        stateId: $stateId
+        zip: $zip
+      }
+    ) {
+      user {
+        id
+        email
+        firstName
+        lastName
+        city
+        zip
+        role
+        stateId
+        address1
+        address2
+        state {
+          id
+          code
+          abbreviation
+          name
+        }
+      }
+    }
+  }
+`;
 
 function Profile() {
   const router = useRouter();

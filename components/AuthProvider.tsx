@@ -13,10 +13,23 @@ function ViewerProvider({ children }: ChildrenProps) {
   React.useEffect(() => {
     if (loading) return;
 
-    if (pathname === Paths.PROFILE && !viewer) {
-      push(Paths.SIGN_IN);
-    } else if (pathname === Paths.SIGN_IN || (pathname === Paths.SIGN_UP && viewer)) {
-      push(Paths.PROFILE);
+    if (!viewer) {
+      switch (pathname) {
+        case Paths.PROFILE:
+          push(Paths.SIGN_IN);
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (pathname) {
+        case Paths.SIGN_IN:
+        case Paths.SIGN_UP:
+          push(Paths.PROFILE);
+          break;
+        default:
+          break;
+      }
     }
   }, [viewer, loading]);
 
