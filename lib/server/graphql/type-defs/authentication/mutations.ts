@@ -1,11 +1,6 @@
 import { gql } from 'apollo-server-micro';
 
 export default gql`
-  input SignInInput {
-    email: String!
-    password: String!
-  }
-
   input SignUpInput {
     email: String!
     firstName: String!
@@ -20,8 +15,6 @@ export default gql`
   }
 
   extend type Mutation {
-    signIn(input: SignInInput!): SignInPayload!
-    signOut: Boolean!
     signUp(input: SignUpInput!): SignUpPayload!
   }
 `;

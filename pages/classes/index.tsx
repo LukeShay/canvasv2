@@ -76,12 +76,25 @@ function Classes() {
 
   return (
     <Page title="Classes">
+      {classes.adminClasses.length > 0 && (
+        <h1 className="w-full text-center border-b border-gray-300 p-2 m-2">
+          Classes you administer
+        </h1>
+      )}
       {classes.adminClasses.map((adminClass) => (
         <ClassCard key={adminClass.id} userClass={adminClass} />
       ))}
+      {classes.assistantClasses.length > 0 && (
+        <h1 className="w-full text-center border-b border-gray-300 p-2 m-2">Classes you assist</h1>
+      )}
       {classes.assistantClasses.map((assistantClass) => (
         <ClassCard key={assistantClass.id} userClass={assistantClass} />
       ))}
+      {classes.studentClasses.length > 0 && (
+        <h1 className="w-full text-center border-b border-gray-300 p-2 m-2">
+          Classes you a student in
+        </h1>
+      )}
       {classes.studentClasses.map((studentClass) => (
         <ClassCard key={studentClass.id} userClass={studentClass} />
       ))}

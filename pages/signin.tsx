@@ -1,10 +1,11 @@
 import { toast } from 'react-toastify';
-import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import * as Sentry from '@sentry/node';
+import { signIn } from 'next-auth/client';
 import Link from 'next/link';
 import React from 'react';
-import { Paths, useRedirect } from '../lib/client';
+import { NextPageContext } from 'next';
+import { Paths } from '../lib/client';
 import Centered from '../components/Centered';
 import CenterForm from '../components/form/CenterForm';
 import Form from '../components/form/Form';
@@ -13,27 +14,18 @@ import Logo from '../components/logos/Logo';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Page from '../components/Page';
-
-const SignInMutation = gql`
-  mutation SignInMutation($email: String!, $password: String!) {
-    signIn(input: { email: $email, password: $password }) {
-      user {
-        id
-        email
-      }
-    }
-  }
-`;
+import { getServerSideRedirect } from '../lib/client/redirect';
 
 export interface ValuesState {
   email: string;
   password: string;
 }
 
+export const getServerSideProps = (context: NextPageContext) =>
+  getServerSideRedirect(context, Paths.PROFILE);
+
 function SignIn() {
-  useRedirect(Paths.PROFILE);
   const router = useRouter();
-  const [signIn] = useMutation(SignInMutation);
   const [values, setValues] = React.useState<ValuesState>({
     email: '',
     password: '',
@@ -48,7 +40,7 @@ function SignIn() {
     event.preventDefault();
 
     try {
-      await signIn({ variables: values });
+      await signIn('credentials', values);
       router.push(Paths.PROFILE);
     } catch (error) {
       Sentry.captureException(error);

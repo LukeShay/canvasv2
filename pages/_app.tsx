@@ -5,9 +5,9 @@ import { Integrations } from '@sentry/tracing';
 import { ToastContainer, Slide } from 'react-toastify';
 import * as Sentry from '@sentry/node';
 import React from 'react';
+import { Provider } from 'next-auth/client';
 import { useApollo } from '../lib/client';
 import NavBar from '../components/NavBar';
-import { ViewerProvider } from '../components/AuthProvider';
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
   Sentry.init({
@@ -22,10 +22,10 @@ function App({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps?.initialApolloState);
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <ViewerProvider>
+    <Provider session={pageProps.session}>
+      <ApolloProvider client={apolloClient}>
         <div className="min-h-screen">
-          <NavBar />
+          <NavBar viewer={pageProps.session?.user} />
           <Component {...pageProps} />
           <ToastContainer
             position="bottom-center"
@@ -36,8 +36,8 @@ function App({ Component, pageProps }: AppProps) {
             pauseOnHover
           />
         </div>
-      </ViewerProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </Provider>
   );
 }
 

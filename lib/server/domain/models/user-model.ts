@@ -122,4 +122,23 @@ export class UserModel extends Model implements IUser {
       },
     };
   }
+
+  mapToIUser() {
+    return {
+      email: this.email,
+      firstName: this.firstName,
+      id: this.id,
+      lastName: this.lastName,
+      password: this.password,
+      role: this.role,
+      address1: this.address1,
+      address2: this.address2,
+      city: this.city,
+      createdAt: this.createdAt,
+      picture: this.picture,
+      stateId: this.stateId,
+      updatedAt: this.updatedAt,
+      zip: this.zip,
+    } as IUser;
+  }
 }

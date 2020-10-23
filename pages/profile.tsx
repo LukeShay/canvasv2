@@ -2,21 +2,18 @@ import * as Sentry from '@sentry/node';
 import { toast } from 'react-toastify';
 import { gql, useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/client';
 import React, { SyntheticEvent } from 'react';
+import { InferGetServerSidePropsType, NextPageContext } from 'next';
 import { IUser, UserRole } from '../lib/types';
-import { StatesQuery, Paths, useRedirect } from '../lib/client';
+import { StatesQuery, Paths } from '../lib/client';
 import Form from '../components/form/Form';
 import Input from '../components/form/Input';
 import Page from '../components/Page';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
-
-const SignOutMutation = gql`
-  mutation SignOutMutation {
-    signOut
-  }
-`;
+import { getServerSideRedirect } from '../lib/client/redirect';
 
 const UpdateUserMutation = gql`
   mutation UpdateUserMutation(
@@ -65,14 +62,15 @@ const UpdateUserMutation = gql`
   }
 `;
 
-function Profile() {
-  const { viewer } = useRedirect(Paths.SIGN_IN, UserRole.BASIC);
+export const getServerSideProps = (context: NextPageContext) =>
+  getServerSideRedirect(context, Paths.SIGN_IN, UserRole.BASIC);
+
+function Profile({ viewer }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const client = useApolloClient();
 
   const { data: statesData } = useQuery(StatesQuery);
 
-  const [signOut] = useMutation(SignOutMutation);
   const [updateUser] = useMutation(UpdateUserMutation);
 
   const [values, setValues] = React.useState<IUser>({
@@ -116,10 +114,7 @@ function Profile() {
     event.preventDefault();
 
     try {
-      const {
-        data: { updateUser: user },
-      } = await updateUser({ variables: values });
-      setValues(user);
+      await updateUser({ variables: values });
       toast('Your account was successfully updated.', { type: toast.TYPE.SUCCESS });
     } catch (error) {
       Sentry.captureException(error);

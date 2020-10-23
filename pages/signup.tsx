@@ -14,6 +14,8 @@ import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
 import Page from '../components/Page';
+import { NextPageContext } from 'next';
+import { getServerSideRedirect } from '../lib/client/redirect';
 
 const SignUpMutation = gql`
   mutation SignUpMutation(
@@ -54,8 +56,10 @@ export interface ValuesState {
   zip: string;
 }
 
+export const getServerSideProps = (context: NextPageContext) =>
+  getServerSideRedirect(context, Paths.PROFILE);
+
 function SignUp() {
-  useRedirect(Paths.PROFILE);
   const router = useRouter();
   const [signUp] = useMutation(SignUpMutation);
   const { data: states } = useQuery(StatesQuery);
@@ -79,6 +83,7 @@ function SignUp() {
 
     try {
       await signUp({ variables: values });
+      toast('You account has been created! Please log in.', { type: toast.TYPE.SUCCESS });
       router.push(Paths.SIGN_IN);
     } catch (error) {
       Sentry.captureException(error);
