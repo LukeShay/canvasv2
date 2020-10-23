@@ -4,14 +4,13 @@ import { gql, useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React, { SyntheticEvent } from 'react';
 import { IUser, UserRole } from '../lib/types';
-import { StatesQuery, Paths } from '../lib/client';
+import { StatesQuery, Paths, useRedirect } from '../lib/client';
 import Form from '../components/form/Form';
 import Input from '../components/form/Input';
 import Page from '../components/Page';
 import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
-import { useViewerContext } from '../components/AuthProvider';
 
 const SignOutMutation = gql`
   mutation SignOutMutation {
@@ -67,9 +66,9 @@ const UpdateUserMutation = gql`
 `;
 
 function Profile() {
+  const { viewer } = useRedirect(Paths.SIGN_IN, UserRole.BASIC);
   const router = useRouter();
   const client = useApolloClient();
-  const { viewer } = useViewerContext();
 
   const { data: statesData } = useQuery(StatesQuery);
 

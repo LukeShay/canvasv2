@@ -1,39 +1,44 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { gql, useQuery } from '@apollo/client';
 import ChildrenProps from './ChildrenProps';
 import { IUser, Optional } from '../lib/types';
-import { Paths, useViewer } from '../lib/client';
 
-const ViewerContext = React.createContext<{ viewer: Optional<IUser> }>({ viewer: undefined });
+const ViewerContext = React.createContext<{ viewer: Optional<IUser>; loading: boolean }>({
+  viewer: undefined,
+  loading: true,
+});
 
-function ViewerProvider({ children }: ChildrenProps) {
-  const { pathname, push } = useRouter();
-  const { viewer, loading } = useViewer();
-
-  React.useEffect(() => {
-    if (loading) return;
-
-    if (!viewer) {
-      switch (pathname) {
-        case Paths.PROFILE:
-          push(Paths.SIGN_IN);
-          break;
-        default:
-          break;
-      }
-    } else {
-      switch (pathname) {
-        case Paths.SIGN_IN:
-        case Paths.SIGN_UP:
-          push(Paths.PROFILE);
-          break;
-        default:
-          break;
+const ViewerQuery = gql`
+  query ViewerQuery {
+    viewer {
+      id
+      email
+      firstName
+      lastName
+      city
+      zip
+      role
+      stateId
+      address1
+      address2
+      state {
+        id
+        code
+        abbreviation
+        name
       }
     }
-  }, [viewer, loading]);
+  }
+`;
 
-  return <ViewerContext.Provider value={{ viewer }}>{children}</ViewerContext.Provider>;
+function ViewerProvider({ children }: ChildrenProps) {
+  const { loading, data } = useQuery(ViewerQuery);
+
+  return (
+    <ViewerContext.Provider value={{ viewer: data?.viewer, loading }}>
+      {children}
+    </ViewerContext.Provider>
+  );
 }
 
 const useViewerContext = () => React.useContext(ViewerContext);

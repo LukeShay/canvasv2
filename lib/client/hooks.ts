@@ -1,39 +1,42 @@
-import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { IUser, Optional } from '../types';
+import { useRouter } from 'next/router';
+// eslint-disable-next-line import/no-cycle
+import { useViewerContext } from '../../components/AuthProvider';
+import { UserRole } from '../types';
+import { atLeastAdmin, atLeastOrgAdmin, atLeastPowerUser } from './authenticator';
 
-const ViewerQuery = gql`
-  query ViewerQuery {
-    viewer {
-      id
-      email
-      firstName
-      lastName
-      city
-      zip
-      role
-      stateId
-      address1
-      address2
-      state {
-        id
-        code
-        abbreviation
-        name
-      }
-    }
-  }
-`;
-
-export function useViewer() {
-  const [viewer, setViewer] = React.useState<Optional<IUser>>();
-  const { loading, data, error } = useQuery(ViewerQuery);
+export function useRedirect(redirect: string, role?: UserRole) {
+  const { viewer, loading } = useViewerContext();
+  const router = useRouter();
 
   React.useEffect(() => {
-    if (data?.viewer) {
-      setViewer(data.viewer);
+    if (!loading && viewer) {
+      switch (role) {
+        case UserRole.BASIC:
+          break;
+        case UserRole.POWER_USER:
+          if (!atLeastPowerUser(viewer)) {
+            router.push(redirect);
+          }
+          break;
+        case UserRole.ORG_ADMIN:
+          if (!atLeastOrgAdmin(viewer)) {
+            router.push(redirect);
+          }
+          break;
+        case UserRole.ADMIN:
+          if (!atLeastAdmin(viewer)) {
+            router.push(redirect);
+          }
+          break;
+        default:
+          router.push(redirect);
+          break;
+      }
+    } else if (!loading) {
+      router.push(redirect);
     }
-  }, [data, loading, error]);
+  }, [viewer, loading]);
 
-  return { viewer, loading, data, error };
+  return { viewer, loading };
 }

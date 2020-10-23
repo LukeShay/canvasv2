@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import * as Sentry from '@sentry/node';
 import Link from 'next/link';
 import React from 'react';
-import { Paths } from '../lib/client';
+import { Paths, useRedirect } from '../lib/client';
 import Centered from '../components/Centered';
 import CenterForm from '../components/form/CenterForm';
 import Form from '../components/form/Form';
@@ -31,6 +31,7 @@ export interface ValuesState {
 }
 
 function SignIn() {
+  useRedirect(Paths.PROFILE);
   const router = useRouter();
   const [signIn] = useMutation(SignInMutation);
   const [values, setValues] = React.useState<ValuesState>({

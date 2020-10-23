@@ -45,24 +45,16 @@ interface ClassesState {
 
 interface ClassCardProps {
   userClass: IClass;
-  memberType: 'ADMIN' | 'ASSISTANT' | 'STUDENT';
 }
 
-function ClassCard({ userClass: { coverPhoto, name, code, description } }: ClassCardProps) {
+function ClassCard({ userClass: { name, code, description } }: ClassCardProps) {
   return (
-    <div className="w-1/2 md:w-1/3 lg:w-1/4">
-      <div className="md:flex bg-white rounded-lg p-6 border border-gray-100 m-2">
-        <img
-          className="h-16 w-16 md:h-24 md:w-24 rounded-full mx-auto md:mx-0 md:mr-6"
-          src={coverPhoto}
-          alt="cover"
-        />
-        <div className="text-center md:text-left">
-          <h2 className="text-lg">{name}</h2>
-          <div className="text-indigo-500">{code}</div>
-          <div className="text-gray-600">{description}</div>
-          <div className="text-gray-600">(555) 765-4321</div>
-        </div>
+    <div className="flex justify-center">
+      <div className="border border-gray-100 hover:border-gray-300 hover:bg-gray-100 rounded-md shadow-md p-6 m-4 w-3/4 text-center">
+        <h2 className="text-lg">{name}</h2>
+        <div className="text-indigo-500">{code}</div>
+        <div className="text-gray-600">{description}</div>
+        <div className="text-gray-600">(555) 765-4321</div>
       </div>
     </div>
   );
@@ -84,17 +76,15 @@ function Classes() {
 
   return (
     <Page title="Classes">
-      <div className="flex justify-center">
-        {classes.adminClasses.map((adminClass) => (
-          <ClassCard key={adminClass.id} userClass={adminClass} memberType="ADMIN" />
-        ))}
-        {classes.assistantClasses.map((assistantClass) => (
-          <ClassCard key={assistantClass.id} userClass={assistantClass} memberType="ASSISTANT" />
-        ))}
-        {classes.studentClasses.map((studentClass) => (
-          <ClassCard key={studentClass.id} userClass={studentClass} memberType="STUDENT" />
-        ))}
-      </div>
+      {classes.adminClasses.map((adminClass) => (
+        <ClassCard key={adminClass.id} userClass={adminClass} />
+      ))}
+      {classes.assistantClasses.map((assistantClass) => (
+        <ClassCard key={assistantClass.id} userClass={assistantClass} />
+      ))}
+      {classes.studentClasses.map((studentClass) => (
+        <ClassCard key={studentClass.id} userClass={studentClass} />
+      ))}
     </Page>
   );
 }

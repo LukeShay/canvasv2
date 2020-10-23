@@ -6,6 +6,8 @@ import CenterForm from '../../components/form/CenterForm';
 import Form from '../../components/form/Form';
 import Input from '../../components/form/Input';
 import Page from '../../components/Page';
+import { Paths, useRedirect } from '../../lib/client';
+import { UserRole } from '../../lib/types';
 
 const CreateClassMutation = gql`
   mutation CreateClassMutation(
@@ -34,6 +36,7 @@ const CreateClassMutation = gql`
 `;
 
 function Create() {
+  useRedirect(Paths.CLASSES, UserRole.POWER_USER);
   const [createClass] = useMutation(CreateClassMutation);
 
   const [values, setValues] = React.useState({});

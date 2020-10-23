@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import * as Sentry from '@sentry/node';
 import Link from 'next/link';
 import React from 'react';
-import { StatesQuery, Paths } from '../lib/client';
+import { StatesQuery, Paths, useRedirect } from '../lib/client';
 import Centered from '../components/Centered';
 import CenterForm from '../components/form/CenterForm';
 import Form from '../components/form/Form';
@@ -55,6 +55,7 @@ export interface ValuesState {
 }
 
 function SignUp() {
+  useRedirect(Paths.PROFILE);
   const router = useRouter();
   const [signUp] = useMutation(SignUpMutation);
   const { data: states } = useQuery(StatesQuery);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Paths } from '../lib/client/paths';
+import { Paths } from '../lib/client';
 import { UserRole } from '../lib/types';
 import Logo from './logos/Logo';
 import { useViewerContext } from './AuthProvider';
