@@ -25,7 +25,7 @@ function App({ Component, pageProps }: AppProps) {
     <Provider session={pageProps.session}>
       <ApolloProvider client={apolloClient}>
         <div className="min-h-screen">
-          <NavBar viewer={pageProps.session?.user} />
+          <NavBar />
           <Component {...pageProps} />
           <ToastContainer
             position="bottom-center"
