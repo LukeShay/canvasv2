@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import * as Sentry from '@sentry/node';
 import Link from 'next/link';
 import React from 'react';
-import { StatesQuery, Paths, useRedirect } from '../lib/client';
+import { NextPageContext } from 'next';
+import { StatesQuery, Paths } from '../lib/client';
 import Centered from '../components/Centered';
 import CenterForm from '../components/form/CenterForm';
 import Form from '../components/form/Form';
@@ -14,7 +15,6 @@ import PrimaryButton from '../components/buttons/PrimaryButton';
 import Row from '../components/form/Row';
 import Select from '../components/form/Select';
 import Page from '../components/Page';
-import { NextPageContext } from 'next';
 import { getServerSideRedirect } from '../lib/client/redirect';
 
 const SignUpMutation = gql`
