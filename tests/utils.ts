@@ -3,27 +3,49 @@
 import { resolve } from 'path';
 import Knex from 'knex';
 import { Model, transaction, Transaction } from 'objection';
+import moment from 'moment';
 import { v4 } from 'uuid';
 import { connectKnex, UserModel } from '../lib/server';
 import { chance } from '../setup-tests';
-import { OptionalPromise } from '../lib/types';
+import { IUser, OptionalPromise, UserRole } from '../lib/types';
+
+export function generateIUser(): IUser {
+  const stateId = v4();
+  return {
+    email: chance.email(),
+    firstName: chance.last(),
+    id: v4(),
+    lastName: chance.first(),
+    password: chance.string({
+      alpha: true,
+      length: 10,
+      numeric: true,
+      symbols: true,
+    }),
+    role: UserRole.BASIC,
+    address1: chance.address(),
+    address2: `#${chance.integer({ max: 100, min: 0 })}`,
+    city: chance.city(),
+    createdAt: moment.utc().format('YYYY-MM-DD HH:MM:SS'),
+    updatedAt: moment.utc().format('YYYY-MM-DD HH:MM:SS'),
+    stateId,
+    zip: chance.zip(),
+    state: {
+      id: stateId,
+      abbreviation: chance.string({ length: 2 }),
+      code: chance.string({ length: 4 }),
+      name: chance.string(),
+    },
+  };
+}
 
 export async function insertTestUser(): OptionalPromise<UserModel> {
+  const user = generateIUser();
+  delete user.state;
+  delete user.stateId;
+
   try {
-    return await UserModel.query()
-      .insertAndFetch({
-        email: chance.email(),
-        firstName: chance.last(),
-        id: v4(),
-        lastName: chance.first(),
-        password: chance.string({
-          alpha: true,
-          length: 10,
-          numeric: true,
-          symbols: true,
-        }),
-      })
-      .execute();
+    return await UserModel.query().insertAndFetch(user).execute();
   } catch (error) {
     return null;
   }
