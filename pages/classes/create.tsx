@@ -1,13 +1,15 @@
 import { gql, useMutation } from '@apollo/client';
-import React from 'react';
+import { NextPageContext } from 'next';
 import { toast } from 'react-toastify';
-import PrimaryButton from '../../components/buttons/PrimaryButton';
+import React from 'react';
+import { getServerSideRedirect } from '../../lib/client/redirect';
+import { Paths } from '../../lib/client';
+import { UserRole } from '../../lib/types';
 import CenterForm from '../../components/form/CenterForm';
 import Form from '../../components/form/Form';
 import Input from '../../components/form/Input';
 import Page from '../../components/Page';
-import { Paths, useRedirect } from '../../lib/client';
-import { UserRole } from '../../lib/types';
+import PrimaryButton from '../../components/buttons/PrimaryButton';
 
 const CreateClassMutation = gql`
   mutation CreateClassMutation(
@@ -35,8 +37,10 @@ const CreateClassMutation = gql`
   }
 `;
 
+export const getServerSideProps = (context: NextPageContext) =>
+  getServerSideRedirect(context, Paths.CLASSES, UserRole.POWER_USER);
+
 function Create() {
-  useRedirect(Paths.CLASSES, UserRole.POWER_USER);
   const [createClass] = useMutation(CreateClassMutation);
 
   const [values, setValues] = React.useState({});
@@ -67,7 +71,6 @@ function Create() {
       <CenterForm>
         <Form onSubmit={handleSubmit}>
           <Input id="building" onChange={handleChange} label="Building" required />
-          <Input id="adminId" onChange={handleChange} label="adminId" required />
           <Input id="code" onChange={handleChange} label="Code" required />
           <Input id="description" onChange={handleChange} label="Description" required />
           <Input id="name" onChange={handleChange} label="Name" required />
