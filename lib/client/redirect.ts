@@ -23,7 +23,6 @@ export async function getServerSideRedirect(
   let viewer: IUser | null = null;
 
   if (session) {
-    console.log('log');
     viewer = (session.user as unknown) as IUser;
   }
 
