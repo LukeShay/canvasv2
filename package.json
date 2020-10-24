@@ -20,6 +20,7 @@
     "seed:remote": "yarn seed --env remote",
     "seed:test": "yarn seed --env test",
     "start": "next start",
+    "pretest": "rm -rf test.sqlite3 && yarn migrate:test",
     "test": "jest",
     "typecheck": "tsc --noEmit"
   },

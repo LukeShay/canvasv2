@@ -25,8 +25,6 @@ export async function insertTestUser(): OptionalPromise<UserModel> {
       })
       .execute();
   } catch (error) {
-    console.error(error);
-    console.error(error.message);
     return null;
   }
 }
