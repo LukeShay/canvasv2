@@ -1,5 +1,6 @@
 export enum Paths {
   HOME = '/',
+  CLASS = '/class',
   CLASSES = '/classes',
   CLASSES_CREATE = '/classes/create',
   CALENDAR = '/calendar',

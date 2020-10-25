@@ -35,7 +35,7 @@ function NavBar() {
               </div>
             </Link>
             <button
-              className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-indigo-500 hover:border-gray-900 md:hidden"
+              className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-indigo-500 hover:border-gray-900 md:hidden mr-6"
               type="button"
               id="main-menu"
               aria-label="Main menu"

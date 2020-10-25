@@ -7,7 +7,12 @@ export default gql`
     studentClasses: [ClassSchema]!
   }
 
+  input ClassInput {
+    id: ID!
+  }
+
   extend type Query {
     classes: ClassesPayload!
+    clas(input: ClassInput!): ClassSchema!
   }
 `;
