@@ -94,7 +94,7 @@ function AdminToolbar() {
 export const getServerSideProps = (context: NextPageContext) =>
   getServerSideRedirect(context, Paths.SIGN_IN, UserRole.BASIC);
 
-function Classes({}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+function Classes({ viewer }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { data, loading } = useQuery(ClassesQuery);
   const [classes, setClasses] = React.useState<ClassesState>({
     adminClasses: [],
@@ -119,7 +119,7 @@ function Classes({}: InferGetServerSidePropsType<typeof getServerSideProps>) {
           <ClassCardSkeleton />
         </>
       )}
-      {atLeastPowerUser() && <AdminToolbar />}
+      {atLeastPowerUser(viewer) && <AdminToolbar />}
       {classes.adminClasses.length > 0 && (
         <h1 className="w-full text-center border-b border-gray-300 p-2 m-2">
           Classes you administer

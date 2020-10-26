@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
 import { Paths } from '../lib/client';
-import { IUser, UserRole } from '../lib/types';
 import Logo from './logos/Logo';
+import { IUser, UserRole } from '../lib/types';
 
 function NavBar() {
   const router = useRouter();
